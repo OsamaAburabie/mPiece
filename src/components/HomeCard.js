@@ -4,14 +4,28 @@ function HomeCard() {
   return (
     <div
       dir="rtl"
-      className="bg-secondary h-44 w-full m-3 overflow-hidden sm:m-3  md:m-3  lg:m-3 md:w-1/5  lg:w-1/5 xl:m-6  xl:w-1/5 flex flex-wrap  "
+      className="bg-gray-100  w-96 h-64 m-4 rounded-md shadow-md "
+      style={{
+        backgroundImage:
+          'url("https://www.mymove.com/wp-content/uploads/2019/12/satellite-dish.jpg")',
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
     >
-      <img
-        className="h-5/6 w-full object-cover   "
-        src="https://scontent.famm7-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=dSLcRgMjUS0AX8gZHI1&_nc_ht=scontent.famm7-1.fna&oh=abc9062c2a58be0deda9343146e25d58&oe=60940977"
-        alt="Man looking at item at a store"
-      />
-      <span className="w-full text-center text-secondary ">تصليح ستالايت</span>
+      <div className="flex flex-row items-end h-full w-full ">
+        <div className="flex flex-col w-full pb-3 pt-10 px-3 bg-gradient-to-t from-black text-gray-200">
+          <h3 className="text-base font-bold leading-5 uppercase">
+            تركيب ساتالايت
+          </h3>
+          <div className="inline-flex items-center">
+            <span className="capitalize font-base text-xs my-1 m-1">
+              معدل الأجر 30$-40$
+            </span>
+            <i class="fas fa-tags"></i>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
