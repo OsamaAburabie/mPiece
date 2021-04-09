@@ -1,139 +1,111 @@
+import { Formik } from "formik";
+import { NavLink } from "react-router-dom";
+import * as Yup from "yup";
+import HomeCard from "../components/HomeCard";
+import Test from "../components/Test";
 function Home() {
   return (
-    <section className="text-gray-700 body-font flex align-center justify-center">
-      <div>
-        <div className="max-w-md mx-auto bg-secondary rounded-xl shadow-md overflow-hidden md:max-w-2xl m-16">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0">
-              <img
-                className="h-48 w-full object-cover md:w-48"
-                src="https://scontent.famm7-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=dSLcRgMjUS0AX8gZHI1&_nc_ht=scontent.famm7-1.fna&oh=abc9062c2a58be0deda9343146e25d58&oe=60940977"
-                alt="Man looking at item at a store"
-              />
-            </div>
-            <div className="p-8">
-              <div className="uppercase tracking-wide text-primary text-indigo-500 font-semibold">
-                Case study
-              </div>
-              <a
-                href="#"
-                className="block mt-1 text-lg leading-tight font-medium text-primary hover:underline"
-              >
-                Finding customers for your new business
-              </a>
-              <p className="mt-2 text-gray-500">
-                Getting a new business off the ground is a lot of hard work.
-                Here are five ideas you can use to find your first customers.
-              </p>
-            </div>
-          </div>
+    <>
+      <section className="w-full flex justify-center items-center h-96 bg-gray-700 ">
+        <div className="w-full  md:w-3/5 h-78 bg-secondary rounded-lg ">
+          <Formik
+            initialValues={{ input: "" }}
+            onSubmit={async (values) => {
+              await new Promise((resolve) => setTimeout(resolve, 500));
+              alert(JSON.stringify(values, null, 2));
+            }}
+            validationSchema={Yup.object().shape({
+              input: Yup.string().required("Required"),
+            })}
+          >
+            {(props) => {
+              const { values, handleChange, handleSubmit } = props;
+              return (
+                <div dir="rtl">
+                  <form
+                    dir="rtl"
+                    className="flex flex-wrap p-3 justify-center "
+                    onSubmit={handleSubmit}
+                  >
+                    <label className="w-full block text-center p-4 text-4xl text-secondary mb-10">
+                      بشو بنقدر نساعدك؟
+                    </label>
+                    <input
+                      id="input"
+                      placeholder="اريد مساعدة في.."
+                      type="text"
+                      value={values.input}
+                      onChange={handleChange}
+                      className="w-10/12 border  p-2 rounded-md bg-secondary outline-none"
+                    />
+
+                    <button
+                      className="text-secondary bg-primary px-3 py-2 rounded-md text-sm font-medium mr-2 border  "
+                      type="submit"
+                    >
+                      بحث
+                    </button>
+                  </form>
+
+                  {/* ==================================================================================== */}
+                  {/* <label className="mx-7 ">خدمات رائجة</label> */}
+                  <div
+                    dir="rtl"
+                    className="flex space-x-3 mx-4 my-4 sm:mx-4 md:mx-6"
+                  >
+                    <NavLink
+                      to="/Team"
+                      className="bg-btn text-btn px-3 py-2 rounded-md text-sm font-medium ml-3"
+                    >
+                      التنظيف
+                    </NavLink>
+                    <NavLink
+                      to="/Team"
+                      className="bg-btn text-btn px-3 py-2 rounded-md text-sm font-medium "
+                    >
+                      المنزل
+                    </NavLink>
+                    <NavLink
+                      to="/Team"
+                      className="bg-btn text-btn px-3 py-2 rounded-md text-sm font-medium "
+                    >
+                      النقل
+                    </NavLink>
+                    <NavLink
+                      to="/Team"
+                      className="bg-btn text-btn px-3 py-2 rounded-md text-sm font-medium "
+                    >
+                      النجارة
+                    </NavLink>
+                    <NavLink
+                      to="/Team"
+                      className="bg-btn text-btn px-3 py-2 rounded-md text-sm font-medium "
+                    >
+                      الحدادة
+                    </NavLink>
+                  </div>
+                </div>
+              );
+            }}
+          </Formik>
         </div>
-        <div className="max-w-md mx-auto bg-secondary rounded-xl shadow-md overflow-hidden md:max-w-2xl m-16">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0">
-              <img
-                className="h-48 w-full object-cover md:w-48"
-                src="https://scontent.famm7-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=dSLcRgMjUS0AX8gZHI1&_nc_ht=scontent.famm7-1.fna&oh=abc9062c2a58be0deda9343146e25d58&oe=60940977"
-                alt="Man looking at item at a store"
-              />
-            </div>
-            <div className="p-8">
-              <div className="uppercase tracking-wide text-primary text-indigo-500 font-semibold">
-                Case study
-              </div>
-              <a
-                href="#"
-                className="block mt-1 text-lg leading-tight font-medium text-primary hover:underline"
-              >
-                Finding customers for your new business
-              </a>
-              <p className="mt-2 text-gray-500">
-                Getting a new business off the ground is a lot of hard work.
-                Here are five ideas you can use to find your first customers.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-md mx-auto bg-secondary rounded-xl shadow-md overflow-hidden md:max-w-2xl m-16">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0">
-              <img
-                className="h-48 w-full object-cover md:w-48"
-                src="https://scontent.famm7-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=dSLcRgMjUS0AX8gZHI1&_nc_ht=scontent.famm7-1.fna&oh=abc9062c2a58be0deda9343146e25d58&oe=60940977"
-                alt="Man looking at item at a store"
-              />
-            </div>
-            <div className="p-8">
-              <div className="uppercase tracking-wide text-primary text-indigo-500 font-semibold">
-                Case study
-              </div>
-              <a
-                href="#"
-                className="block mt-1 text-lg leading-tight font-medium text-primary hover:underline"
-              >
-                Finding customers for your new business
-              </a>
-              <p className="mt-2 text-gray-500">
-                Getting a new business off the ground is a lot of hard work.
-                Here are five ideas you can use to find your first customers.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-md mx-auto bg-secondary rounded-xl shadow-md overflow-hidden md:max-w-2xl m-16">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0">
-              <img
-                className="h-48 w-full object-cover md:w-48"
-                src="https://scontent.famm7-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=dSLcRgMjUS0AX8gZHI1&_nc_ht=scontent.famm7-1.fna&oh=abc9062c2a58be0deda9343146e25d58&oe=60940977"
-                alt="Man looking at item at a store"
-              />
-            </div>
-            <div className="p-8">
-              <div className="uppercase tracking-wide text-primary text-indigo-500 font-semibold">
-                Case study
-              </div>
-              <a
-                href="#"
-                className="block mt-1 text-lg leading-tight font-medium text-primary hover:underline"
-              >
-                Finding customers for your new business
-              </a>
-              <p className="mt-2 text-gray-500">
-                Getting a new business off the ground is a lot of hard work.
-                Here are five ideas you can use to find your first customers.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-md mx-auto bg-secondary rounded-xl shadow-md overflow-hidden md:max-w-2xl m-16">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0">
-              <img
-                className="h-48 w-full object-cover md:w-48"
-                src="https://scontent.famm7-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=dSLcRgMjUS0AX8gZHI1&_nc_ht=scontent.famm7-1.fna&oh=abc9062c2a58be0deda9343146e25d58&oe=60940977"
-                alt="Man looking at item at a store"
-              />
-            </div>
-            <div className="p-8">
-              <div className="uppercase tracking-wide text-primary text-indigo-500 font-semibold">
-                Case study
-              </div>
-              <a
-                href="#"
-                className="block mt-1 text-lg leading-tight font-medium text-primary hover:underline"
-              >
-                Finding customers for your new business
-              </a>
-              <p className="mt-2 text-gray-500">
-                Getting a new business off the ground is a lot of hard work.
-                Here are five ideas you can use to find your first customers.
-              </p>
-            </div>
-          </div>
-        </div>
+      </section>
+      <p className="w-full  text-center py-8 text-3xl text-secondary ">
+        خدمات رائجة في منطقتك
+      </p>
+      {/* <div class="flex flex-wrap justify-center p-8"> */}
+      {/* <div class="grid grid-cols-1 md:grid-cols-4 place-items-center gap-4 p-8"> */}
+      <div class="flex flex-wrap overflow-hidden  w-full justify-center ">
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
       </div>
-    </section>
+    </>
   );
 }
 
