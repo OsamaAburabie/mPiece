@@ -23,7 +23,7 @@ const Navbar = () => {
               {/* Mobile menu button*/}
               <button
                 type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-primary hover:bg-primary outline-none focus:outline-none"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
                 onClick={() => setMobileMenue(!mobuleMenue)}
@@ -150,7 +150,7 @@ const Navbar = () => {
                   <div>
                     <button
                       type="button"
-                      className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="bg-gray-800 flex text-sm rounded-full focus:outline-none"
                       id="user-menu"
                       aria-expanded="false"
                       aria-haspopup="true"
@@ -177,7 +177,7 @@ const Navbar = () => {
                   {profileMenueOpen && (
                     <div
                       ref={ref}
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white focus:outline-none"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"

@@ -4,7 +4,7 @@ function HomeCard() {
   return (
     <div
       dir="rtl"
-      className="bg-gray-100  w-96 h-64 m-4 rounded-md shadow-md "
+      className="bg-gray-100 w-96 md:h-64 h-36 m-4 md:m-8  rounded-md shadow-md "
       style={{
         backgroundImage:
           'url("https://www.mymove.com/wp-content/uploads/2019/12/satellite-dish.jpg")',

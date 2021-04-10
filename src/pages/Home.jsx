@@ -5,7 +5,7 @@ import HomeCard from "../components/HomeCard";
 function Home() {
   return (
     <>
-      <section className="w-full flex justify-center items-center h-96 bg-gray-700 ">
+      <section className="w-full flex justify-center items-center h-96 bg-gray-400 ">
         <div className="w-full  md:w-3/5 h-78 bg-secondary rounded-lg ">
           <Formik
             initialValues={{ input: "" }}
