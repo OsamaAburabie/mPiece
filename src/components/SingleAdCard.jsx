@@ -1,5 +1,3 @@
-import { Avatar } from "@material-ui/core";
-import { NavLink } from "react-router-dom";
 import "./SingleAdCard.css";
 function SingleAdCard({
   title,
@@ -18,18 +16,6 @@ function SingleAdCard({
         alt=""
       />
       <div className="p-4">
-        <div className="flex items-center justify-end flex-wrap  ">
-          <div className="flex flex-wrap justify-center text-center">
-            {avatar && (
-              <Avatar className="headerOption__icon" src={avatar}>
-                {taskerName && taskerName[0]}
-              </Avatar>
-            )}
-            <span className="text-sm block w-full text-gray-500 uppercase font-bold">
-              اسامه
-            </span>
-          </div>
-        </div>
         <span className="flex flex-col items-start ">
           <span className="font-bold mb-2 text-lg text-secondary ">
             {title}

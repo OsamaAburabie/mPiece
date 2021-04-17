@@ -31,7 +31,7 @@ function Routes() {
           <Route path="/myConnections" component={Connections} />
           <Route path="/services" exact component={Services} />
           <Route path="/services/:catId" exact component={TaskerAds} />
-          <Route path="/services/:catId/:adId" component={SingleAd} />
+          <Route path="/services/:catId/:adId/:taskerId" component={SingleAd} />
         </Switch>
         <Footer />
       </BrowserRouter>

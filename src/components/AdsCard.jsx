@@ -7,6 +7,7 @@ function AdsCard({
   location,
   avatar,
   taskerName,
+  taskerId,
   categoryId,
   adId,
 }) {
@@ -16,7 +17,7 @@ function AdsCard({
         dir="rtl"
         className="h-full text-left px-4 py-4 bg-secondary shadow-md rounded-md w-full justify-end  "
       >
-        <a to="jobdet" className="flex items-center flex-wrap h-20">
+        <div to="jobdet" className="flex items-center flex-wrap h-20">
           <img
             alt="testimonial"
             className="inline-block object-cover object-center w-20 h-20 mb-4 bg-gray-100 rounded"
@@ -33,10 +34,10 @@ function AdsCard({
               الأجرة/س: {price} دينار
             </span>
           </span>
-        </a>
+        </div>
         <div className="flex items-center justify-between flex-wrap  ">
           <NavLink
-            to={`/services/${categoryId}/${adId}`}
+            to={`/services/${categoryId}/${adId}/${taskerId}`}
             className="bg-btn text-btn px-3 py-2 rounded-md text-sm font-medium "
           >
             إحجز
