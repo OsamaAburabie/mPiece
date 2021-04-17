@@ -5,7 +5,9 @@ function Services() {
   const [category, setCategory] = useState();
 
   useEffect(() => {
-    axios.get("users/getallCategories").then((res) => setCategory(res.data));
+    axios
+      .get("http://localhost:5000/users/getallCategories")
+      .then((res) => setCategory(res.data));
   }, []);
   return (
     <div className="h-screen flex  justify-center flex-wrap ">

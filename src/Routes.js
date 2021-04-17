@@ -9,16 +9,17 @@ import AuthContext from "../src/contexts/AuthContext";
 import Connections from "./pages/Connections";
 import Services from "./pages/Services";
 import TaskerAds from "./pages/TaskerAds";
+import SingleAd from "./pages/SingleAd";
 
 function Routes() {
-  // const { isLoggedIn } = useContext(AuthContext);
-  // if (isLoggedIn === undefined) {
-  //   return (
-  //     <div className="Loading__container">
-  //       <h1>Loading</h1>
-  //     </div>
-  //   );
-  // }
+  const { isLoggedIn } = useContext(AuthContext);
+  if (isLoggedIn === undefined) {
+    return (
+      <div className="Loading__container">
+        <h1>Loading</h1>
+      </div>
+    );
+  }
   return (
     <div className="bg-primary ">
       <BrowserRouter>
@@ -29,7 +30,8 @@ function Routes() {
           <Route path="/register" component={Register} />
           <Route path="/myConnections" component={Connections} />
           <Route path="/services" exact component={Services} />
-          <Route path="/services/:id" component={TaskerAds} />
+          <Route path="/services/:catId" exact component={TaskerAds} />
+          <Route path="/services/:catId/:adId" component={SingleAd} />
         </Switch>
         <Footer />
       </BrowserRouter>

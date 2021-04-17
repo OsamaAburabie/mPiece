@@ -1,14 +1,25 @@
-function AdsCard({ title, price, location, avatar, name }) {
+import { Avatar } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
+
+function AdsCard({
+  title,
+  price,
+  location,
+  avatar,
+  taskerName,
+  categoryId,
+  adId,
+}) {
   return (
-    <div className="flex m-4 ">
+    <div className="flex w-full m-3 mt-0 ">
       <div
         dir="rtl"
         className="h-full text-left px-4 py-4 bg-secondary shadow-md rounded-md w-full justify-end  "
       >
-        <a to="jobdet" className="flex items-center flex-wrap">
+        <a to="jobdet" className="flex items-center flex-wrap h-20">
           <img
             alt="testimonial"
-            className="inline-block object-cover object-center w-16 h-16 mb-4 bg-gray-100 rounded"
+            className="inline-block object-cover object-center w-20 h-20 mb-4 bg-gray-100 rounded"
             src="https://dummyimage.com/302x302/94a3b8/ffffff"
           />
           <span className="flex flex-col items-start pr-4">
@@ -24,15 +35,22 @@ function AdsCard({ title, price, location, avatar, name }) {
           </span>
         </a>
         <div className="flex items-center justify-between flex-wrap  ">
-          <a
-            to="jobdet"
-            className="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0 px-2 py-1 border-2 border-indigo-500 rounded-full text-sm"
+          <NavLink
+            to={`/services/${categoryId}/${adId}`}
+            className="bg-btn text-btn px-3 py-2 rounded-md text-sm font-medium "
           >
             إحجز
-          </a>
-          <span className="text-gray-800 leading-none text-sm pr-3 py-1 px-2 bg-yellow-500 rounded-full">
-            New
-          </span>
+          </NavLink>
+          <div className="flex flex-wrap justify-center text-center">
+            {avatar && (
+              <Avatar className="headerOption__icon" src={avatar}>
+                {taskerName[0]}
+              </Avatar>
+            )}
+            <span className="text-sm block w-full text-gray-500 uppercase font-bold">
+              اسامه
+            </span>
+          </div>
         </div>
       </div>
     </div>

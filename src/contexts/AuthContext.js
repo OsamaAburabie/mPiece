@@ -19,9 +19,13 @@ function AuthContextProvider(props) {
       token = "";
     } else setMyToken(token);
 
-    const tokenRes = await axios.post("check/isLoggedIn", null, {
-      headers: { "x-auth-token": token },
-    });
+    const tokenRes = await axios.post(
+      "http://localhost:5000/check/isLoggedIn",
+      null,
+      {
+        headers: { "x-auth-token": token },
+      }
+    );
     if (tokenRes.data.valid === true) {
       setUsername(tokenRes.data.displayName);
       setRole(tokenRes.data.role);

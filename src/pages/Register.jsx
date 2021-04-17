@@ -32,7 +32,10 @@ const Register = () => {
         displayName,
       };
 
-      const loginRes = await axios.post("users/register", RegisterData);
+      const loginRes = await axios.post(
+        "http://localhost:5000/users/register",
+        RegisterData
+      );
       if (loginRes.data.token) {
         localStorage.setItem("auth-token", loginRes.data.token);
         checkLoggedIn();

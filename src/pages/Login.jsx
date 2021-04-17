@@ -30,7 +30,10 @@ const Login = () => {
         password,
       };
 
-      const loginRes = await axios.post("users/login", loginData);
+      const loginRes = await axios.post(
+        "http://localhost:5000/users/login",
+        loginData
+      );
       if (loginRes.data.token) {
         localStorage.setItem("auth-token", loginRes.data.token);
         checkLoggedIn();
