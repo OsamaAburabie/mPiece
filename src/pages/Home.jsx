@@ -94,31 +94,19 @@ function Home() {
       </p>
       {/* <div class="flex flex-wrap justify-center p-8"> */}
       {/* <div class="grid grid-cols-1 md:grid-cols-4 place-items-center gap-4 p-8"> */}
-      <div class="flex items-center justify-center flex-wrap  ">
+      <div className="flex items-center justify-center flex-wrap  ">
         <>
-          <NavLink to="/">
-            <HomeCard />
-          </NavLink>
+          <HomeCard />
 
-          <NavLink to="/">
-            <HomeCard />
-          </NavLink>
+          <HomeCard />
 
-          <NavLink to="/">
-            <HomeCard />
-          </NavLink>
+          <HomeCard />
 
-          <NavLink to="/">
-            <HomeCard />
-          </NavLink>
+          <HomeCard />
 
-          <NavLink to="/">
-            <HomeCard />
-          </NavLink>
+          <HomeCard />
 
-          <NavLink to="/">
-            <HomeCard />
-          </NavLink>
+          <HomeCard />
         </>
       </div>
     </>
