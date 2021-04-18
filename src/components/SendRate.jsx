@@ -13,7 +13,7 @@ function SendRate({ taskerId, id }) {
     // setRateobj({ rate: newValue });
     axios
       .post(
-        `http://localhost:5000/users/rate/${taskerId}`,
+        `http://localhost:5000/users/rate/${taskerId}/${id}`,
         { rate: newValue },
         {
           headers: { "x-auth-token": myToken },
@@ -25,7 +25,7 @@ function SendRate({ taskerId, id }) {
   };
 
   return (
-    <div dir="ltr">
+    <div dir="ltr" className="flex justify-end">
       <Rating name="simple-controlled" value={value} onChange={handlerate} />
     </div>
   );

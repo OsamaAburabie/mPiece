@@ -10,13 +10,15 @@ import Connections from "./pages/Connections";
 import Services from "./pages/Services";
 import TaskerAds from "./pages/TaskerAds";
 import SingleAd from "./pages/SingleAd";
+import NotFound from "./pages/NotFound";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function Routes() {
   const { isLoggedIn } = useContext(AuthContext);
   if (isLoggedIn === undefined) {
     return (
-      <div className="Loading__container">
-        <h1>Loading</h1>
+      <div className="h-screen w-screen flex justify-center items-center">
+        <CircularProgress />
       </div>
     );
   }
@@ -31,7 +33,8 @@ function Routes() {
           <Route path="/myConnections" component={Connections} />
           <Route path="/services" exact component={Services} />
           <Route path="/services/:catId" exact component={TaskerAds} />
-          <Route path="/services/:catId/:adId/:taskerId" component={SingleAd} />
+          <Route path="/services/:adId/:taskerId" component={SingleAd} />
+          <Route path="/NotFound404" component={NotFound} />
         </Switch>
         <Footer />
       </BrowserRouter>

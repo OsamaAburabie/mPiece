@@ -12,7 +12,7 @@ function AdsCard({
   adId,
 }) {
   return (
-    <div className="flex w-full m-3 mt-0 ">
+    <div className="flex w-full h-40 m-3 mt-0 ">
       <div
         dir="rtl"
         className="h-full text-left px-4 py-4 bg-secondary shadow-md rounded-md w-full justify-end  "
@@ -37,7 +37,7 @@ function AdsCard({
         </div>
         <div className="flex items-center justify-between flex-wrap  ">
           <NavLink
-            to={`/services/${categoryId}/${adId}/${taskerId}`}
+            to={`/services/${adId}/${taskerId}`}
             className="bg-btn text-btn px-3 py-2 rounded-md text-sm font-medium "
           >
             إحجز
@@ -48,8 +48,8 @@ function AdsCard({
                 {taskerName[0]}
               </Avatar>
             )}
-            <span className="text-sm block w-full text-gray-500 uppercase font-bold">
-              اسامه
+            <span className="text-sm block w-full text-secondary font-bold">
+              {taskerName}
             </span>
           </div>
         </div>

@@ -65,7 +65,7 @@ const Navbar = () => {
 
   //=================================================================================== set seen on mouse over
   const handleMouseOver = (id) => {
-    axios.post(`http://localhost:5000/users/deleteNotifcation/${id}`, null, {
+    axios.put(`http://localhost:5000/users/updateNotification/${id}`, null, {
       headers: { "x-auth-token": myToken },
     });
   };
@@ -263,7 +263,7 @@ const Navbar = () => {
               {/* //=============================================================================================================================================== */}
 
               {isLoggedIn && role === "customer" && (
-                <div className="mr-3 relative">
+                <div className="mr-3 relative z-10">
                   <div>
                     <button
                       type="button"
@@ -276,7 +276,9 @@ const Navbar = () => {
                       }}
                     >
                       <Badge
-                        badgeContent={notification?.length}
+                        badgeContent={
+                          notification?.filter((el) => el.seen !== 1).length
+                        }
                         color="secondary"
                       >
                         <NotificationsIcon className="text-primary" />
@@ -297,13 +299,15 @@ const Navbar = () => {
                         notification.map((el) => (
                           <div
                             key={el._id}
-                            className=" px-4 py-2  bg-secondary text-secondary  flex justify-between items-center "
+                            className=" px-4 py-2  bg-secondary text-secondary flex flex-wrap items-center hover:bg-primary cursor-pointer h-20  "
                             role="menuitem"
-                            onMouseOver={() => handleMouseOver(el._id)}
+                            onMouseOver={() => handleMouseOver(el.notifId)}
                           >
-                            <p className="text-lg">{el.text}</p>
+                            <p className="text-md w-full">{el.text}</p>
 
-                            <SendRate taskerId={el.taskerId} id={el._id} />
+                            {el.type === "rate" && (
+                              <SendRate taskerId={el.taskerId} id={el._id} />
+                            )}
                           </div>
                         ))}
                     </div>

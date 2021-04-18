@@ -18,8 +18,11 @@ function TaskerAds() {
 
   if (!ads) return <div className=" bg-primary h-screen"></div>;
   return (
-    <div dir="rtl" className="w-screen flex p-3">
-      <div className="  w-full md:w-9/12 flex flex-wrap items-center  ">
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-12  gap-4 p-5">
+      <div dir="rtl" className=" md:col-span-4 lg:col-span-3 hidden md:block">
+        <Sidebar />
+      </div>
+      <div className="md:col-span-8  lg:col-span-9 grid place-items-center  ">
         {ads &&
           ads.map((el) => (
             <AdsCard
@@ -35,7 +38,6 @@ function TaskerAds() {
             />
           ))}
       </div>
-      <Sidebar />
     </div>
   );
 }
