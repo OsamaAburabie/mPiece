@@ -10,6 +10,9 @@ import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
 import SendRate from "./SendRate";
+import Moment from "react-moment";
+import "moment/locale/ar";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 
 const Navbar = () => {
   const ref = useRef();
@@ -298,12 +301,20 @@ const Navbar = () => {
                       {notification &&
                         notification.map((el) => (
                           <div
+                            dir="rtl"
                             key={el._id}
                             className=" px-4 py-2  bg-secondary text-secondary flex flex-wrap items-center hover:bg-primary cursor-pointer h-20  "
                             role="menuitem"
                             onMouseOver={() => handleMouseOver(el.notifId)}
                           >
                             <p className="text-md w-full">{el.text}</p>
+
+                            <div>
+                              <AccessTimeIcon className="ml-2" />
+                              <Moment locale="ar" fromNow>
+                                {el?.createdAt}
+                              </Moment>
+                            </div>
 
                             {el.type === "rate" && (
                               <SendRate taskerId={el.taskerId} id={el._id} />
