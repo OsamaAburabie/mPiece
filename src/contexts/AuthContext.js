@@ -9,6 +9,7 @@ function AuthContextProvider(props) {
   const [email, setEmail] = useState(null);
   const [pendingCon, setPendingCon] = useState(null);
   const [connections, setConnections] = useState(null);
+  const [notification, setNotification] = useState(null);
   const [myToken, setMyToken] = useState(null);
 
   //get the tokey frrom local storage and send to the checking end point to check if its a valid token.
@@ -32,7 +33,15 @@ function AuthContextProvider(props) {
       setEmail(tokenRes.data.email);
       setPendingCon(tokenRes.data.pendingConnections);
       setConnections(tokenRes.data.connections);
+      setNotification(tokenRes.data.notifications);
       setLoggedIn(true);
+
+      console.log(tokenRes);
+
+      //==============================
+      axios.put("http://localhost:5000/users/lastLogin", null, {
+        headers: { "x-auth-token": token },
+      });
     } else {
       setLoggedIn(false);
     }
@@ -44,6 +53,7 @@ function AuthContextProvider(props) {
     <AuthContext.Provider
       value={{
         isLoggedIn,
+        setLoggedIn,
         username,
         role,
         email,
@@ -52,6 +62,8 @@ function AuthContextProvider(props) {
         connections,
         pendingCon,
         setPendingCon,
+        notification,
+        setNotification,
       }}
     >
       {props.children}

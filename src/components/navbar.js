@@ -9,6 +9,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
+import SendRate from "./SendRate";
 
 const Navbar = () => {
   const ref = useRef();
@@ -23,11 +24,15 @@ const Navbar = () => {
     checkLoggedIn,
     setPendingCon,
     myToken,
+    notification,
+    setNotification,
+    setLoggedIn,
   } = useContext(AuthContext);
 
   const logout = async () => {
     localStorage.setItem("auth-token", "");
     checkLoggedIn();
+    setLoggedIn(undefined);
   };
 
   useOnClickOutside(ref, () => setProfileMenueOpen(false));
@@ -40,7 +45,7 @@ const Navbar = () => {
       uid: id,
     };
     axios
-      .post("users/acceptConnection", myId, {
+      .post("http://localhost:5000/users/acceptConnection", myId, {
         headers: { "x-auth-token": myToken },
       })
       .then((res) => setPendingCon(pendingCon.filter((el) => el.uid !== id)))
@@ -51,11 +56,18 @@ const Navbar = () => {
       uid: id,
     };
     axios
-      .post("users/rejectConnection", myId, {
+      .post("http://localhost:5000/users/rejectConnection", myId, {
         headers: { "x-auth-token": myToken },
       })
       .then((res) => setPendingCon(pendingCon.filter((el) => el.uid !== id)))
       .catch((err) => console.log(err));
+  };
+
+  //=================================================================================== set seen on mouse over
+  const handleMouseOver = (id) => {
+    axios.post(`http://localhost:5000/users/deleteNotifcation/${id}`, null, {
+      headers: { "x-auth-token": myToken },
+    });
   };
 
   return (
@@ -241,6 +253,57 @@ const Navbar = () => {
                                 <CloseIcon />
                               </button>
                             </div>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* //=============================================================================================================================================== */}
+
+              {isLoggedIn && role === "customer" && (
+                <div className="mr-3 relative">
+                  <div>
+                    <button
+                      type="button"
+                      id="user-menu"
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      className="rounded-full focus:outline-none"
+                      onClick={() => {
+                        setPendingMenue(true);
+                      }}
+                    >
+                      <Badge
+                        badgeContent={notification?.length}
+                        color="secondary"
+                      >
+                        <NotificationsIcon className="text-primary" />
+                      </Badge>
+                    </button>
+                  </div>
+                  {pendingMenue && (
+                    <div
+                      dir="rtl"
+                      ref={ref}
+                      className="origin-top-right absolute  md:left-0 mt-2 w-96 rounded-md shadow-lg py-1 bg-secondary text-secondary  focus:outline-none"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="user-menu"
+                      // onClick={() => setPendingMenue(false)}
+                    >
+                      {notification &&
+                        notification.map((el) => (
+                          <div
+                            key={el._id}
+                            className=" px-4 py-2  bg-secondary text-secondary  flex justify-between items-center "
+                            role="menuitem"
+                            onMouseOver={() => handleMouseOver(el._id)}
+                          >
+                            <p className="text-lg">{el.text}</p>
+
+                            <SendRate taskerId={el.taskerId} id={el._id} />
                           </div>
                         ))}
                     </div>

@@ -9,7 +9,6 @@ function Rate({ rating }) {
     sum += obj["rate"] / resutl;
   }
 
-  console.log(sum);
   return (
     <div className="w-full flex justify-center">
       <Rating name="read-only" value={sum} readOnly />

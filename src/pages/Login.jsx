@@ -11,9 +11,7 @@ const Login = () => {
   const history = useHistory();
   //check if user is logged in already redirect to '/' and if they are admin redirect to dashboard
   useEffect(() => {
-    if (isLoggedIn && role === "admin") {
-      history.push("/admin/manageTickits");
-    } else if ((isLoggedIn && role === "customer") || role === "tasker") {
+    if (isLoggedIn) {
       history.push("/");
     }
     //eslint-disable-next-line

@@ -1,11 +1,10 @@
 .con__card {
   width: 100%;
-  height: 25rem;
+
   /* background: #333; */
   padding: 1rem;
 }
 .con__card__upper {
-  /* background: red; */
   display: flex;
   justify-content: center;
 }
