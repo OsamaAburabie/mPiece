@@ -36,8 +36,6 @@ function AuthContextProvider(props) {
       setNotification(tokenRes.data.notifications);
       setLoggedIn(true);
 
-      console.log(tokenRes);
-
       //==============================
       axios.put("http://localhost:5000/users/lastLogin", null, {
         headers: { "x-auth-token": token },

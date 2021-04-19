@@ -12,7 +12,7 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
 import AuthContext from "../contexts/AuthContext";
 import AdComments from "../components/AdComments";
-import { Redirect } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 function SingleAd() {
   const { adId, taskerId } = useParams();
@@ -21,8 +21,11 @@ function SingleAd() {
   // const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState("");
-  const { myToken, isLoggedIn } = useContext(AuthContext);
+  const { myToken, isLoggedIn, role, connections, pendingCon } = useContext(
+    AuthContext
+  );
   const [notFound, setNotFound] = useState(false);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     axios
@@ -45,12 +48,25 @@ function SingleAd() {
         .post(`http://localhost:5000/users/addConnection/${taskerId}`, null, {
           headers: { "x-auth-token": myToken },
         })
-        .then((res) => setSuccess(res.data.msg))
+        .then((res) => {
+          setSuccess(res.data.msg);
+          setShow(false);
+        })
         .catch(
           (err) => err.response.data.msg && setSuccess(err.response.data.msg)
         );
     }
   };
+
+  const existing = (id) => {
+    if (!connections) return false;
+    return connections.some((el) => id === el.uid);
+  };
+  const pending = (id) => {
+    if (!pendingCon) return false;
+    return pendingCon.some((el) => id === el.uid);
+  };
+
   if (notFound) {
     return <NotFound />;
   }
@@ -94,18 +110,41 @@ function SingleAd() {
                     </p>
                     <p className="text-md text-secondary">
                       <CheckCircleOutlineIcon className="ml-2" />
-                      عضو مسجل :
+                      عضو :
                       <Moment locale="ar" fromNow>
                         {tasker?.createdAt}
                       </Moment>
                     </p>
                   </div>
-                  <button
-                    onClick={() => book()}
-                    className="w-full bg-btn p-2 text-btn rounded-sm  "
-                  >
-                    إحجز
-                  </button>
+
+                  <div>
+                    {role !== "tasker" &&
+                      !existing(taskerId) &&
+                      !pending(taskerId) && (
+                        <button
+                          onClick={() => book()}
+                          disabled={!show}
+                          className="book__btn bg-btn text-btn rounded-sm"
+                        >
+                          ارسال طلب
+                        </button>
+                      )}
+
+                    {pending(taskerId) && (
+                      <button
+                        onClick={() => book()}
+                        disabled={true}
+                        className="book__btn bg-btn text-btn rounded-sm"
+                      >
+                        تم ارسال طلبك
+                      </button>
+                    )}
+                    {existing(taskerId) && (
+                      <button className="book__btn bg-btn text-btn rounded-sm">
+                        تواصل
+                      </button>
+                    )}
+                  </div>
                   {error && (
                     <p className="text-red-600 p-1">
                       يجب ان تكون مسجل لكي تستطيع ان تحجز

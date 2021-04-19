@@ -13,7 +13,6 @@ import SendRate from "./SendRate";
 import Moment from "react-moment";
 import "moment/locale/ar";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-
 const Navbar = () => {
   const ref = useRef();
   const [profileMenueOpen, setProfileMenueOpen] = useState(false);
@@ -67,10 +66,19 @@ const Navbar = () => {
   };
 
   //=================================================================================== set seen on mouse over
-  const handleMouseOver = (id) => {
-    axios.put(`http://localhost:5000/users/updateNotification/${id}`, null, {
-      headers: { "x-auth-token": myToken },
-    });
+  const handleMouseOver = (id, seen) => {
+    if (seen === 0) {
+      axios.put(`http://localhost:5000/users/updateNotification/${id}`, null, {
+        headers: { "x-auth-token": myToken },
+      });
+    }
+  };
+  const handleDelNotification = (id) => {
+    axios
+      .post(`http://localhost:5000/users/deleteNotification/${id}`, null, {
+        headers: { "x-auth-token": myToken },
+      })
+      .then(setNotification(notification.filter((el) => el._id !== id)));
   };
 
   return (
@@ -303,10 +311,18 @@ const Navbar = () => {
                           <div
                             dir="rtl"
                             key={el._id}
-                            className=" px-4 py-2  bg-secondary text-secondary flex flex-wrap items-center hover:bg-primary cursor-pointer h-20  "
+                            className=" px-4 py-4  bg-secondary text-secondary flex flex-wrap items-center hover:bg-primary cursor-pointer h-25 relative  "
                             role="menuitem"
-                            onMouseOver={() => handleMouseOver(el.notifId)}
+                            onMouseOver={() =>
+                              handleMouseOver(el.notifId, el.seen)
+                            }
                           >
+                            <button
+                              onClick={() => handleDelNotification(el._id)}
+                              className="absolute top-0 left-0 p-1 outline-none focus:outline-none"
+                            >
+                              <CloseIcon />
+                            </button>
                             <p className="text-md w-full">{el.text}</p>
 
                             <div>
