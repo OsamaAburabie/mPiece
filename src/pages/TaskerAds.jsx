@@ -20,8 +20,8 @@ function TaskerAdsUpdate() {
   if (!ads) return <div className=" bg-primary h-screen"></div>;
   return (
     // <div className="min-h-screen grid grid-cols-1 md:grid-cols-12  gap-4 p-5"></div>
-    <div dir className="min-h-screen w-screen">
-      <div class="container w-full md:w-10/12 mx-auto p-4  grid grid-cols-12">
+    <div className="min-h-screen w-screen">
+      <div className="container w-full md:w-10/12 mx-auto p-4  grid grid-cols-12">
         <div className="col-span-12 h-40 bg-gray-200"></div>
         {/* //========================================================================================== */}
         <div className="col-span-0 hidden md:block md:col-span-5  "></div>

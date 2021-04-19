@@ -3,6 +3,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import { NavLink } from "react-router-dom";
+import AdCardTaskerInfo from "./Tasker/AdCardTaskerInfo";
 function TaskerAdCard({
   title,
   price,
@@ -18,7 +19,7 @@ function TaskerAdCard({
       dir="rtl"
       className="w-full h-56 md:h-52  rounded-md shadow-md bg-secondary flex"
     >
-      <div className="h-full w-54 flex justify-center items-center  py-1 flex-wrap">
+      {/* <div className="h-full w-54 flex justify-center items-center  py-1 flex-wrap">
         <div className="w-full flex justify-center flex-wrap  border-l">
           <img
             src="https://scontent.famm10-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=f5pa2FLFEAsAX8jY3yj&_nc_ht=scontent.famm10-1.fna&oh=2675a517602d9067dae43697e59d5af8&oe=609FE6F7"
@@ -36,7 +37,8 @@ function TaskerAdCard({
             </NavLink>
           </div>
         </div>
-      </div>
+      </div> */}
+      <AdCardTaskerInfo taskerId={taskerId} adId={adId} />
       <div className="h-full w-full p-4 text-secondary flex items-center  ">
         <div className="flex flex-wrap">
           <div className="overflow-hidden max-h-24 md:max-h-18">

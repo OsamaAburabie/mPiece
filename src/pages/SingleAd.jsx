@@ -84,7 +84,7 @@ function SingleAd() {
                 >
                   <div className="con__card__upper">
                     <img
-                      src="https://scontent.famm10-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=f5pa2FLFEAsAX8jY3yj&_nc_ht=scontent.famm10-1.fna&oh=2675a517602d9067dae43697e59d5af8&oe=609FE6F7"
+                      src={tasker?.img}
                       alt="anything"
                       className="w-20 h-20"
                     />
@@ -93,7 +93,10 @@ function SingleAd() {
                     {tasker?.name}
                   </span>
                   <div className="w-full ">
-                    <Rate rating={tasker?.rating} />
+                    <Rate
+                      rating={tasker?.rating?.sum}
+                      numOfVotes={tasker?.rating?.numOfVotes}
+                    />
                   </div>
                   <div className="w-full mt-2 p-3 ">
                     <p className="text-md text-secondary">
