@@ -13,11 +13,13 @@ import SendRate from "./SendRate";
 import Moment from "react-moment";
 import "moment/locale/ar";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import NewAdPopup from "../components/Tasker/NewAdPopup";
 const Navbar = () => {
   const ref = useRef();
   const [profileMenueOpen, setProfileMenueOpen] = useState(false);
   const [pendingMenue, setPendingMenue] = useState(false);
   const [mobuleMenue, setMobileMenue] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const {
     isLoggedIn,
     role,
@@ -190,6 +192,15 @@ const Navbar = () => {
                   >
                     حول
                   </NavLink>
+
+                  {role === "tasker" && (
+                    <button
+                      onClick={() => setShowPopup(true)}
+                      className="text-white focus:outline-none bg-red-600  px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      اعلان جديد
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -449,6 +460,7 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+      {showPopup && <NewAdPopup />}
     </>
   );
 };
