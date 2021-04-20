@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import ReactPlaceholder from "react-placeholder";
 import "react-placeholder/lib/reactPlaceholder.css";
 
-function AdCardTaskerInfo({ taskerId, adId }) {
+function AdCardTaskerInfo({ taskerId, adId, handleLoading }) {
   const [tasker, setTasker] = useState({});
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -18,6 +18,7 @@ function AdCardTaskerInfo({ taskerId, adId }) {
     setTasker(res.data.tasker);
     setRating(res.data.tasker.rating.sum);
     setLoading(false);
+    handleLoading();
   };
   useEffect(() => {
     getTaskerInfo();
@@ -25,8 +26,8 @@ function AdCardTaskerInfo({ taskerId, adId }) {
   return (
     <div className="h-full w-54  flex justify-center items-center py-1 flex-wrap">
       <ReactPlaceholder
-        type="media"
-        style={{ width: "10rem", display: "flex" }}
+        type="round"
+        style={{ width: "10rem", height: "10rem", display: "flex" }}
         rows={5}
         ready={!loading}
       >
