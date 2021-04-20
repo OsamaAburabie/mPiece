@@ -237,7 +237,7 @@ const Navbar = () => {
                     <div
                       dir="rtl"
                       ref={ref}
-                      className="origin-top-right absolute  md:left-0 mt-2 w-96 rounded-md shadow-lg py-1 bg-secondary text-secondary  focus:outline-none"
+                      className="absolute  md:left-0 mt-2 flex rounded-md shadow-lg py-1 bg-secondary text-secondary  focus:outline-none"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
@@ -245,25 +245,24 @@ const Navbar = () => {
                     >
                       {pendingCon &&
                         pendingCon.map((el) => (
-                          <div
-                            key={el.uid}
-                            className=" px-4 py-2  bg-secondary text-secondary  flex justify-between items-center "
-                            role="menuitem"
-                          >
-                            <p className="text-lg">{el.name}</p>
-
-                            <div>
+                          <div className="w-96 p-2 bg-primary text-right shadow-md rounded-md flex flex-wrap items-center m-2">
+                            <div dir="auto" className=" px-2 w-full mb-2">
+                              <p>الاسم: {el.name}</p>
+                              <p>المهمة: {el.taskTitle}</p>
+                              <p>الموقع: {el.taskLocation}</p>
+                            </div>
+                            <div className="px-2 w-full">
                               <button
                                 onClick={() => acceptCon(el.uid, el.taskId)}
-                                className="bg-green-600 text-white rounded-full p-1"
+                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 mb-2 md:mb-0 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                               >
-                                <CheckIcon />
+                                موافق
                               </button>
                               <button
                                 onClick={() => rejectCon(el.uid, el.taskId)}
-                                className="bg-red-600 text-white mr-2 rounded-full p-1"
+                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                               >
-                                <CloseIcon />
+                                رفض
                               </button>
                             </div>
                           </div>

@@ -12,9 +12,10 @@ import TaskerAds from "./pages/TaskerAds";
 import SingleAd from "./pages/SingleAd";
 import NotFound from "./pages/NotFound";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Popup from "./components/Tasker/PendingPopup";
 
 function Routes() {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, role, pendingCon } = useContext(AuthContext);
   if (isLoggedIn === undefined) {
     return (
       <div className="h-screen w-screen flex justify-center items-center">
@@ -38,6 +39,8 @@ function Routes() {
         </Switch>
         <Footer />
       </BrowserRouter>
+
+      {isLoggedIn && role === "tasker" && pendingCon.length > 0 && <Popup />}
     </div>
   );
 }
