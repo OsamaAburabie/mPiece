@@ -3,7 +3,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 
-function SendRate({ taskerId, id }) {
+function SendRate({ taskId, id }) {
   const [value, setValue] = useState(0);
   const [rateobj, setRateobj] = useState();
   const { myToken, setNotification, notification } = useContext(AuthContext);
@@ -13,7 +13,7 @@ function SendRate({ taskerId, id }) {
     // setRateobj({ rate: newValue });
     axios
       .post(
-        `http://localhost:5000/users/rate/${taskerId}/${id}`,
+        `http://localhost:5000/users/rate/${taskId}/${id}`,
         { rate: newValue },
         {
           headers: { "x-auth-token": myToken },

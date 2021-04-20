@@ -42,23 +42,25 @@ const Navbar = () => {
   useOnClickOutside(ref, () => setMobileMenue(false));
 
   //connection accept and reject
-  const acceptCon = (id) => {
-    let myId = {
+  const acceptCon = (id, taskId) => {
+    let data = {
       uid: id,
+      taskId,
     };
     axios
-      .post("http://localhost:5000/users/acceptConnection", myId, {
+      .post("http://localhost:5000/users/acceptConnection", data, {
         headers: { "x-auth-token": myToken },
       })
       .then((res) => setPendingCon(pendingCon.filter((el) => el.uid !== id)))
       .catch((err) => console.log(err));
   };
-  const rejectCon = (id) => {
-    let myId = {
+  const rejectCon = (id, taskId) => {
+    let data = {
       uid: id,
+      taskId,
     };
     axios
-      .post("http://localhost:5000/users/rejectConnection", myId, {
+      .post("http://localhost:5000/users/rejectConnection", data, {
         headers: { "x-auth-token": myToken },
       })
       .then((res) => setPendingCon(pendingCon.filter((el) => el.uid !== id)))
@@ -252,13 +254,13 @@ const Navbar = () => {
 
                             <div>
                               <button
-                                onClick={() => acceptCon(el.uid)}
+                                onClick={() => acceptCon(el.uid, el.taskId)}
                                 className="bg-green-600 text-white rounded-full p-1"
                               >
                                 <CheckIcon />
                               </button>
                               <button
-                                onClick={() => rejectCon(el.uid)}
+                                onClick={() => rejectCon(el.uid, el.taskId)}
                                 className="bg-red-600 text-white mr-2 rounded-full p-1"
                               >
                                 <CloseIcon />
@@ -333,7 +335,7 @@ const Navbar = () => {
                             </div>
 
                             {el.type === "rate" && (
-                              <SendRate taskerId={el.taskerId} id={el._id} />
+                              <SendRate taskId={el.taskId} id={el._id} />
                             )}
                           </div>
                         ))}

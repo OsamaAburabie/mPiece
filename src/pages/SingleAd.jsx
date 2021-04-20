@@ -13,6 +13,8 @@ import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
 import AuthContext from "../contexts/AuthContext";
 import AdComments from "../components/AdComments";
 import Button from "@material-ui/core/Button";
+import { NavLink } from "react-router-dom";
+import Popup from "../components/Popup";
 
 function SingleAd() {
   const { adId, taskerId } = useParams();
@@ -26,6 +28,7 @@ function SingleAd() {
   );
   const [notFound, setNotFound] = useState(false);
   const [show, setShow] = useState(true);
+  const [popOpen, setPopOpen] = useState(false);
 
   useEffect(() => {
     axios
@@ -56,6 +59,24 @@ function SingleAd() {
           (err) => err.response.data.msg && setSuccess(err.response.data.msg)
         );
     }
+  };
+
+  //this is for the popup
+  const handlePopup = () => {
+    if (!isLoggedIn) {
+      setError(true);
+    } else {
+      setPopOpen(true);
+    }
+  };
+  const handleDisable = () => {
+    setShow(false);
+  };
+
+  const handleSuccess = () => {
+    setSuccess(
+      "تم ارسال طلبك بنجاح .. الرحاء انتظار موافقه العامل في اقرب وقت"
+    );
   };
 
   const existing = (id) => {
@@ -125,7 +146,8 @@ function SingleAd() {
                       !existing(taskerId) &&
                       !pending(taskerId) && (
                         <button
-                          onClick={() => book()}
+                          // onClick={() => book()}
+                          onClick={handlePopup}
                           disabled={!show}
                           className="book__btn bg-btn text-btn rounded-sm"
                         >
@@ -143,14 +165,17 @@ function SingleAd() {
                       </button>
                     )}
                     {existing(taskerId) && (
-                      <button className="book__btn bg-btn text-btn rounded-sm">
+                      <NavLink
+                        to={`/tasker/${taskerId}`}
+                        className="book__btn block bg-btn text-btn rounded-sm"
+                      >
                         تواصل
-                      </button>
+                      </NavLink>
                     )}
                   </div>
                   {error && (
                     <p className="text-red-600 p-1">
-                      يجب ان تكون مسجل لكي تستطيع ان تحجز
+                      يجب ان تكون مسجل لكي تستطيع ان ترسل طلب
                     </p>
                   )}
                   {success && <p className="text-red-600 p-1">{success}</p>}
@@ -170,6 +195,14 @@ function SingleAd() {
           />
           <AdComments />
         </div>
+
+        {popOpen && (
+          <Popup
+            disable={handleDisable}
+            success={handleSuccess}
+            taskerId={taskerId}
+          />
+        )}
       </div>
     );
   } else {
