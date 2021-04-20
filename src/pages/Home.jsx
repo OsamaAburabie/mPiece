@@ -2,11 +2,10 @@ import { Formik } from "formik";
 import { NavLink } from "react-router-dom";
 import * as Yup from "yup";
 import HomeCard from "../components/HomeCard";
-import Test from "../components/Test";
 function Home() {
   return (
     <>
-      <section className="w-full flex justify-center items-center h-96 bg-gray-700 ">
+      <section className="w-full flex justify-center items-center h-96 bg-gray-400 ">
         <div className="w-full  md:w-3/5 h-78 bg-secondary rounded-lg ">
           <Formik
             initialValues={{ input: "" }}
@@ -27,7 +26,7 @@ function Home() {
                     className="flex flex-wrap p-3 justify-center "
                     onSubmit={handleSubmit}
                   >
-                    <label className="w-full block text-center p-4 text-4xl text-secondary mb-10">
+                    <label className="w-full block text-center p-4 text-3xl text-secondary mb-10">
                       بشو بنقدر نساعدك؟
                     </label>
                     <input
@@ -90,20 +89,25 @@ function Home() {
           </Formik>
         </div>
       </section>
-      <p className="w-full  text-center py-8 text-3xl text-secondary ">
+      <p className="w-full  text-center py-8 text-4xl text-secondary ">
         خدمات رائجة في منطقتك
       </p>
       {/* <div class="flex flex-wrap justify-center p-8"> */}
       {/* <div class="grid grid-cols-1 md:grid-cols-4 place-items-center gap-4 p-8"> */}
-      <div class="flex flex-wrap overflow-hidden  w-full justify-center ">
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
+      <div className="flex items-center justify-center flex-wrap  ">
+        <>
+          <HomeCard />
+
+          <HomeCard />
+
+          <HomeCard />
+
+          <HomeCard />
+
+          <HomeCard />
+
+          <HomeCard />
+        </>
       </div>
     </>
   );

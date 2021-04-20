@@ -1,17 +1,87 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import Toggle from "../components/toggle";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import Logo from "../images/logo.png";
 import { NavLink } from "react-router-dom";
-
+import AuthContext from "../contexts/AuthContext";
+import { Badge, IconButton } from "@material-ui/core";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import CheckIcon from "@material-ui/icons/Check";
+import CloseIcon from "@material-ui/icons/Close";
+import axios from "axios";
+import SendRate from "./SendRate";
+import Moment from "react-moment";
+import "moment/locale/ar";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 const Navbar = () => {
   const ref = useRef();
   const [profileMenueOpen, setProfileMenueOpen] = useState(false);
+  const [pendingMenue, setPendingMenue] = useState(false);
   const [mobuleMenue, setMobileMenue] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {
+    isLoggedIn,
+    role,
+    username,
+    pendingCon,
+    checkLoggedIn,
+    setPendingCon,
+    myToken,
+    notification,
+    setNotification,
+    setLoggedIn,
+  } = useContext(AuthContext);
+
+  const logout = async () => {
+    localStorage.setItem("auth-token", "");
+    checkLoggedIn();
+    setLoggedIn(undefined);
+  };
 
   useOnClickOutside(ref, () => setProfileMenueOpen(false));
+  useOnClickOutside(ref, () => setPendingMenue(false));
   useOnClickOutside(ref, () => setMobileMenue(false));
+
+  //connection accept and reject
+  const acceptCon = (id, taskId) => {
+    let data = {
+      uid: id,
+      taskId,
+    };
+    axios
+      .post("http://localhost:5000/users/acceptConnection", data, {
+        headers: { "x-auth-token": myToken },
+      })
+      .then((res) => setPendingCon(pendingCon.filter((el) => el.uid !== id)))
+      .catch((err) => console.log(err));
+  };
+  const rejectCon = (id, taskId) => {
+    let data = {
+      uid: id,
+      taskId,
+    };
+    axios
+      .post("http://localhost:5000/users/rejectConnection", data, {
+        headers: { "x-auth-token": myToken },
+      })
+      .then((res) => setPendingCon(pendingCon.filter((el) => el.uid !== id)))
+      .catch((err) => console.log(err));
+  };
+
+  //=================================================================================== set seen on mouse over
+  const handleMouseOver = (id, seen) => {
+    if (seen === 0) {
+      axios.put(`http://localhost:5000/users/updateNotification/${id}`, null, {
+        headers: { "x-auth-token": myToken },
+      });
+    }
+  };
+  const handleDelNotification = (id) => {
+    axios
+      .post(`http://localhost:5000/users/deleteNotification/${id}`, null, {
+        headers: { "x-auth-token": myToken },
+      })
+      .then(setNotification(notification.filter((el) => el._id !== id)));
+  };
 
   return (
     <>
@@ -23,7 +93,7 @@ const Navbar = () => {
               {/* Mobile menu button*/}
               <button
                 type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-primary hover:bg-primary outline-none focus:outline-none"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
                 onClick={() => setMobileMenue(!mobuleMenue)}
@@ -92,15 +162,15 @@ const Navbar = () => {
                 <div className="flex space-x-4">
                   {/* Current: "bg-primary text-primary", Default: "text-secondary hover:bg-primary hover:text-primary" */}
                   <NavLink
-                    to="/Dashboard"
+                    to="/"
                     className=" text-primary hover:bg-primary hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
                     aria-current="page"
-                    activeClassName="bg-primary"
+                    // activeClassName="bg-primary"
                   >
                     الرئيسية
                   </NavLink>
                   <NavLink
-                    to="/Team"
+                    to="/services"
                     className="text-secondary hover:bg-primary hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
                     activeClassName="bg-primary"
                   >
@@ -130,13 +200,13 @@ const Navbar = () => {
                 <div className="hidden md:block sm:ml-6">
                   <div className="flex space-x-4">
                     <NavLink
-                      to="/Team"
+                      to="/register"
                       className="text-secondary hover:bg-primary hover:text-primary px-3 py-2 rounded-md text-sm font-medium mr-3"
                     >
                       التسجيل
                     </NavLink>
                     <NavLink
-                      to="/Team"
+                      to="/login"
                       className="text-secondary hover:bg-primary hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
                     >
                       الدخول
@@ -145,12 +215,140 @@ const Navbar = () => {
                 </div>
               )}
               {/* Profile dropdown */}
+              {isLoggedIn && role === "tasker" && (
+                <div className="mr-3 relative">
+                  <div>
+                    <button
+                      type="button"
+                      id="user-menu"
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      className="rounded-full focus:outline-none"
+                      onClick={() => {
+                        setPendingMenue(true);
+                      }}
+                    >
+                      <Badge badgeContent={pendingCon.length} color="secondary">
+                        <NotificationsIcon className="text-primary" />
+                      </Badge>
+                    </button>
+                  </div>
+                  {pendingMenue && (
+                    <div
+                      dir="rtl"
+                      ref={ref}
+                      className="origin-top-right absolute  md:left-0 mt-2 w-96 rounded-md shadow-lg py-1 bg-secondary text-secondary  focus:outline-none"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="user-menu"
+                      onClick={() => setPendingMenue(false)}
+                    >
+                      {pendingCon &&
+                        pendingCon.map((el) => (
+                          <div
+                            key={el.uid}
+                            className=" px-4 py-2  bg-secondary text-secondary  flex justify-between items-center "
+                            role="menuitem"
+                          >
+                            <p className="text-lg">{el.name}</p>
+
+                            <div>
+                              <button
+                                onClick={() => acceptCon(el.uid, el.taskId)}
+                                className="bg-green-600 text-white rounded-full p-1"
+                              >
+                                <CheckIcon />
+                              </button>
+                              <button
+                                onClick={() => rejectCon(el.uid, el.taskId)}
+                                className="bg-red-600 text-white mr-2 rounded-full p-1"
+                              >
+                                <CloseIcon />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* //=============================================================================================================================================== */}
+
+              {isLoggedIn && role === "customer" && (
+                <div className="mr-3 relative z-10">
+                  <div>
+                    <button
+                      type="button"
+                      id="user-menu"
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      className="rounded-full focus:outline-none"
+                      onClick={() => {
+                        setPendingMenue(true);
+                      }}
+                    >
+                      <Badge
+                        badgeContent={
+                          notification?.filter((el) => el.seen !== 1).length
+                        }
+                        color="secondary"
+                      >
+                        <NotificationsIcon className="text-primary" />
+                      </Badge>
+                    </button>
+                  </div>
+                  {pendingMenue && (
+                    <div
+                      dir="rtl"
+                      ref={ref}
+                      className="origin-top-right absolute  md:left-0 mt-2 w-96 rounded-md shadow-lg py-1 bg-secondary text-secondary  focus:outline-none"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="user-menu"
+                      // onClick={() => setPendingMenue(false)}
+                    >
+                      {notification &&
+                        notification.map((el) => (
+                          <div
+                            dir="rtl"
+                            key={el._id}
+                            className=" px-4 py-4  bg-secondary text-secondary flex flex-wrap items-center hover:bg-primary cursor-pointer h-25 relative  "
+                            role="menuitem"
+                            onMouseOver={() =>
+                              handleMouseOver(el.notifId, el.seen)
+                            }
+                          >
+                            <button
+                              onClick={() => handleDelNotification(el._id)}
+                              className="absolute top-0 left-0 p-1 outline-none focus:outline-none"
+                            >
+                              <CloseIcon />
+                            </button>
+                            <p className="text-md w-full">{el.text}</p>
+
+                            <div>
+                              <AccessTimeIcon className="ml-2" />
+                              <Moment locale="ar" fromNow>
+                                {el?.createdAt}
+                              </Moment>
+                            </div>
+
+                            {el.type === "rate" && (
+                              <SendRate taskId={el.taskId} id={el._id} />
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              )}
               {isLoggedIn !== false && (
                 <div className="mr-3 relative">
                   <div>
                     <button
                       type="button"
-                      className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="bg-gray-800 flex text-sm rounded-full focus:outline-none"
                       id="user-menu"
                       aria-expanded="false"
                       aria-haspopup="true"
@@ -164,6 +362,7 @@ const Navbar = () => {
                       />
                     </button>
                   </div>
+
                   {/*
       Dropdown menu, show/hide based on menu state.
 
@@ -177,36 +376,38 @@ const Navbar = () => {
                   {profileMenueOpen && (
                     <div
                       ref={ref}
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1  bg-secondary text-secondary focus:outline-none"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
+                      onClick={() => setProfileMenueOpen(false)}
                     >
                       <NavLink
                         to="/"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm hover:bg-primary text-secondary"
                         role="menuitem"
                       >
                         الملف الشخصي
                       </NavLink>
                       <NavLink
-                        to="/"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        to="/myConnections"
+                        className="block px-4 py-2 text-sm hover:bg-primary text-secondary"
                         role="menuitem"
                       >
-                        الاعدادات
+                        شبكتي
                       </NavLink>
-                      <NavLink
-                        to="/"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      <div
+                        onClick={logout}
+                        className="block px-4 py-2 text-sm hover:bg-primary  text-secondary cursor-pointer"
                         role="menuitem"
                       >
                         تسجيل الخروج
-                      </NavLink>
+                      </div>
                     </div>
                   )}
                 </div>
               )}
+              {/* notifications */}
             </div>
           </div>
         </div>
@@ -228,21 +429,21 @@ const Navbar = () => {
                 className="text-secondary hover:bg-primary hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-primary"
               >
-                Team
+                الخدمات
               </NavLink>
               <NavLink
                 to="/Projects"
                 className="text-secondary hover:bg-primary hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-primary"
               >
-                Projects
+                اسكتشف
               </NavLink>
               <NavLink
                 to="/Calendar"
                 className="text-secondary hover:bg-primary hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-primary"
               >
-                Calendar
+                حول
               </NavLink>
             </div>
           </div>
