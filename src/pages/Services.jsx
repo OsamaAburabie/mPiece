@@ -10,18 +10,23 @@ function Services() {
       .then((res) => setCategory(res.data));
   }, []);
   return (
-    <div className="h-screen flex  justify-center flex-wrap ">
-      {category &&
-        category.map((el) => (
-          <HomeCard
-            key={el._id}
-            title={el.name}
-            img={el.picture}
-            min="15"
-            high="40"
-            link={el._id}
-          />
-        ))}
+    <div className=" h-screen  ">
+      <div className="grid grid-cols-2 md:grid-cols-3   place-items ">
+        {/* <div className=" flex  justify-center flex-wrap"> */}
+        {/* <div className=" gird h-full w-full grid-cols-3 grid-rows-2"> */}
+        {category &&
+          category.map((el) => (
+            <HomeCard
+              key={el._id}
+              title={el.name}
+              img={el.picture}
+              min={el.min}
+              high={el.high}
+              link={el._id}
+            />
+          ))}
+        {/* </div> */}
+      </div>
     </div>
   );
 }

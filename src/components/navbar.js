@@ -6,18 +6,21 @@ import { NavLink } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { Badge, IconButton } from "@material-ui/core";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
 import SendRate from "./SendRate";
 import Moment from "react-moment";
 import "moment/locale/ar";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import NewAdPopup from "../components/Tasker/NewAdPopup";
+
 const Navbar = () => {
   const ref = useRef();
   const [profileMenueOpen, setProfileMenueOpen] = useState(false);
   const [pendingMenue, setPendingMenue] = useState(false);
   const [mobuleMenue, setMobileMenue] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
   const {
     isLoggedIn,
     role,
@@ -190,6 +193,15 @@ const Navbar = () => {
                   >
                     حول
                   </NavLink>
+
+                  {role === "tasker" && (
+                    <button
+                      onClick={() => setShowPopup(true)}
+                      className="text-white focus:outline-none bg-red-600  px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      اعلان جديد
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -237,19 +249,26 @@ const Navbar = () => {
                     <div
                       dir="rtl"
                       ref={ref}
-                      className="absolute  md:left-0 mt-2 flex rounded-md shadow-lg py-1 bg-secondary text-secondary  focus:outline-none"
+                      className="absolute z-10 md:left-0 mt-2 flex flex-wrap rounded-md shadow-lg py-1 bg-primary  text-secondary  focus:outline-none"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
-                      onClick={() => setPendingMenue(false)}
+                      // onClick={() => setPendingMenue(false)}
                     >
                       {pendingCon &&
                         pendingCon.map((el) => (
-                          <div className="w-96 p-2 bg-primary text-right shadow-md rounded-md flex flex-wrap items-center m-2">
+                          <div className="w-96 mb-2 p-2 bg-secondar text-right shadow-md rounded-md flex flex-wrap items-center m-2">
                             <div dir="auto" className=" px-2 w-full mb-2">
                               <p>الاسم: {el.name}</p>
                               <p>المهمة: {el.taskTitle}</p>
                               <p>الموقع: {el.taskLocation}</p>
+                            </div>
+
+                            <div className="absolute top-0  p-3 left-0 outline-none focus:outline-none ">
+                              <AccessTimeIcon className="ml-2" />
+                              <Moment locale="ar" fromNow>
+                                {el?.createdAt}
+                              </Moment>
                             </div>
                             <div className="px-2 w-full">
                               <button
@@ -300,8 +319,9 @@ const Navbar = () => {
                   {pendingMenue && (
                     <div
                       dir="rtl"
+                      dir="rtl"
                       ref={ref}
-                      className="origin-top-right absolute  md:left-0 mt-2 w-96 rounded-md shadow-lg py-1 bg-secondary text-secondary  focus:outline-none"
+                      className="absolute z-10  md:left-0 mt-2 flex flex-wrap rounded-md shadow-lg py-1 bg-primary  text-secondary  focus:outline-none"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
@@ -309,33 +329,62 @@ const Navbar = () => {
                     >
                       {notification &&
                         notification.map((el) => (
+                          // <div
+                          //   dir="rtl"
+                          //   key={el._id}
+                          //   className=" px-4 py-4  bg-secondary text-secondary flex flex-wrap items-center hover:bg-primary cursor-pointer h-25 relative  "
+                          //   role="menuitem"
+                          // onMouseOver={() =>
+                          //   handleMouseOver(el.notifId, el.seen)
+                          // }
+                          // >
+                          //   <button
+                          //     onClick={() => handleDelNotification(el._id)}
+                          //     className="absolute top-0 left-0 p-1 outline-none focus:outline-none"
+                          //   >
+                          //     <CloseIcon />
+                          //   </button>
+                          //   <p className="text-md w-full">{el.text}</p>
+
+                          // <div>
+                          //   <AccessTimeIcon className="ml-2" />
+                          //   <Moment locale="ar" fromNow>
+                          //     {el?.createdAt}
+                          //   </Moment>
+                          // </div>
+
+                          // {el.type === "rate" && (
+                          //   <SendRate taskId={el.taskId} id={el._id} />
+                          // )}
+                          // </div>
                           <div
-                            dir="rtl"
-                            key={el._id}
-                            className=" px-4 py-4  bg-secondary text-secondary flex flex-wrap items-center hover:bg-primary cursor-pointer h-25 relative  "
-                            role="menuitem"
                             onMouseOver={() =>
                               handleMouseOver(el.notifId, el.seen)
                             }
+                            className="w-96 p-2 bg-secondar text-right shadow-md rounded-md flex flex-wrap items-center m-2"
                           >
-                            <button
-                              onClick={() => handleDelNotification(el._id)}
-                              className="absolute top-0 left-0 p-1 outline-none focus:outline-none"
-                            >
-                              <CloseIcon />
-                            </button>
-                            <p className="text-md w-full">{el.text}</p>
-
-                            <div>
-                              <AccessTimeIcon className="ml-2" />
-                              <Moment locale="ar" fromNow>
-                                {el?.createdAt}
-                              </Moment>
+                            <div dir="auto" className=" px-2 w-full mb-2">
+                              <p>{el.text}</p>
                             </div>
-
                             {el.type === "rate" && (
-                              <SendRate taskId={el.taskId} id={el._id} />
+                              <div className="mb-2">
+                                <SendRate taskId={el.taskId} id={el._id} />
+                              </div>
                             )}
+                            <div className="px-2 w-full">
+                              <button
+                                onClick={() => handleDelNotification(el._id)}
+                                className="absolute top-0 left-0 p-1 outline-none focus:outline-none"
+                              >
+                                <CloseIcon />
+                              </button>
+                              <div className="text-sm ">
+                                <AccessTimeIcon className="ml-2" />
+                                <Moment locale="ar" fromNow>
+                                  {el?.createdAt}
+                                </Moment>
+                              </div>
+                            </div>
                           </div>
                         ))}
                     </div>
@@ -356,7 +405,7 @@ const Navbar = () => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src="https://scontent.famm6-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=c9YJstHkbe0AX8z0Fwj&_nc_ht=scontent.famm6-1.fna&oh=04774438877236f1bf10d2fa470a791c&oe=60A3DB77"
                         alt="logo"
                       />
                     </button>
@@ -448,6 +497,7 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+      {showPopup && <NewAdPopup />}
     </>
   );
 };

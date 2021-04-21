@@ -10,14 +10,11 @@ function SingleAdCard({
   categoryId,
   adId,
   desc,
+  img,
 }) {
   return (
     <div dir="rtl" className="singleCard bg-secondary  shadow-sm">
-      <img
-        src="https://2rdnmg1qbg403gumla1v9i2h-wpengine.netdna-ssl.com/wp-content/uploads/sites/3/2018/11/cleanSick-628306310_770x533-650x428.jpg"
-        alt="add-pic"
-        className=" rounded-b-none"
-      />
+      <img src={img} alt="add-pic" className=" rounded-b-none" />
       <div className="p-4 ">
         <span className="flex flex-col items-start ">
           <span className="font-bold  text-lg text-secondary ">{title}</span>

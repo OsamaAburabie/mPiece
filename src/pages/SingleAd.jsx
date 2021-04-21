@@ -187,6 +187,7 @@ function SingleAd() {
         <div className="md:col-span-8  lg:col-span-9  gap-3  ">
           <SingleAdCard
             title={ad?.title}
+            img={ad?.img}
             price={ad?.price}
             location={ad?.location}
             desc={ad?.desc}

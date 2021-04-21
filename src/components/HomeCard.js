@@ -3,10 +3,11 @@ import { NavLink } from "react-router-dom";
 
 function HomeCard({ title, img, min, high, link }) {
   return (
-    <NavLink to={`/services/${link}`}>
+    // <div className="flex w-full">
+    <NavLink className="flex w-full" to={`/services/${link}`}>
       <div
         dir="rtl"
-        className="bg-gray-100 w-96 md:h-64 h-36 m-4 md:m-8  rounded-md shadow-md "
+        className="bg-gray-100 w-full md:h-72 h-36 m-4 md:m-8  rounded-md shadow-md "
         style={{
           backgroundImage: `url(${img})`,
           backgroundPosition: "center",
@@ -26,6 +27,7 @@ function HomeCard({ title, img, min, high, link }) {
           </div>
         </div>
       </div>
+      {/* </div> */}
     </NavLink>
   );
 }
