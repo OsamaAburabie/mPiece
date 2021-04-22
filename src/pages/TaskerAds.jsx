@@ -40,6 +40,7 @@ function TaskerAdsUpdate() {
                   taskerId={el.taskerInfo.uid}
                   categoryId={catId}
                   adId={el._id}
+                  date={el.createdAt}
                 />
               ))}
           </div>

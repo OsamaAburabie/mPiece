@@ -11,6 +11,7 @@ import Services from "./pages/Services";
 import TaskerAds from "./pages/TaskerAds";
 import SingleAd from "./pages/SingleAd";
 import NotFound from "./pages/NotFound";
+import TaskTrack from "./pages/Tasker/TaskTrack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Popup from "./components/Tasker/PendingPopup";
 
@@ -35,6 +36,7 @@ function Routes() {
           <Route path="/services" exact component={Services} />
           <Route path="/services/:catId" exact component={TaskerAds} />
           <Route path="/services/:adId/:taskerId" component={SingleAd} />
+          <Route path="/tasker/:taskerId" exact component={TaskTrack} />
           <Route path="/NotFound404" component={NotFound} />
         </Switch>
         <Footer />

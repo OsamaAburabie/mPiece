@@ -13,6 +13,7 @@ import Moment from "react-moment";
 import "moment/locale/ar";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import NewAdPopup from "../components/Tasker/NewAdPopup";
+import WorkIcon from "@material-ui/icons/Work";
 
 const Navbar = () => {
   const ref = useRef();
@@ -241,7 +242,7 @@ const Navbar = () => {
                       }}
                     >
                       <Badge badgeContent={pendingCon.length} color="secondary">
-                        <NotificationsIcon className="text-primary" />
+                        <WorkIcon className="text-primary" />
                       </Badge>
                     </button>
                   </div>
@@ -256,36 +257,38 @@ const Navbar = () => {
                       // onClick={() => setPendingMenue(false)}
                     >
                       {pendingCon &&
-                        pendingCon.map((el) => (
-                          <div className="w-96 mb-2 p-2 bg-secondar text-right shadow-md rounded-md flex flex-wrap items-center m-2">
-                            <div dir="auto" className=" px-2 w-full mb-2">
-                              <p>الاسم: {el.name}</p>
-                              <p>المهمة: {el.taskTitle}</p>
-                              <p>الموقع: {el.taskLocation}</p>
-                            </div>
+                        pendingCon
+                          .map((el) => (
+                            <div className="w-96 mb-2 p-2 bg-secondar text-right shadow-md rounded-md flex flex-wrap items-center m-2">
+                              <div dir="auto" className=" px-2 w-full mb-2">
+                                <p>الاسم: {el.name}</p>
+                                <p>المهمة: {el.taskTitle}</p>
+                                <p>الموقع: {el.taskLocation}</p>
+                              </div>
 
-                            <div className="absolute top-0  p-3 left-0 outline-none focus:outline-none ">
-                              <AccessTimeIcon className="ml-2" />
-                              <Moment locale="ar" fromNow>
-                                {el?.createdAt}
-                              </Moment>
+                              <div className="absolute top-0  p-3 left-0 outline-none focus:outline-none ">
+                                <AccessTimeIcon className="ml-2" />
+                                <Moment locale="ar" fromNow>
+                                  {el?.createdAt}
+                                </Moment>
+                              </div>
+                              <div className="px-2 w-full">
+                                <button
+                                  onClick={() => acceptCon(el.uid, el.taskId)}
+                                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 mb-2 md:mb-0 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                >
+                                  موافق
+                                </button>
+                                <button
+                                  onClick={() => rejectCon(el.uid, el.taskId)}
+                                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                >
+                                  رفض
+                                </button>
+                              </div>
                             </div>
-                            <div className="px-2 w-full">
-                              <button
-                                onClick={() => acceptCon(el.uid, el.taskId)}
-                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 mb-2 md:mb-0 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                              >
-                                موافق
-                              </button>
-                              <button
-                                onClick={() => rejectCon(el.uid, el.taskId)}
-                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                              >
-                                رفض
-                              </button>
-                            </div>
-                          </div>
-                        ))}
+                          ))
+                          .reverse()}
                     </div>
                   )}
                 </div>
@@ -328,65 +331,46 @@ const Navbar = () => {
                       // onClick={() => setPendingMenue(false)}
                     >
                       {notification &&
-                        notification.map((el) => (
-                          // <div
-                          //   dir="rtl"
-                          //   key={el._id}
-                          //   className=" px-4 py-4  bg-secondary text-secondary flex flex-wrap items-center hover:bg-primary cursor-pointer h-25 relative  "
-                          //   role="menuitem"
-                          // onMouseOver={() =>
-                          //   handleMouseOver(el.notifId, el.seen)
-                          // }
-                          // >
-                          //   <button
-                          //     onClick={() => handleDelNotification(el._id)}
-                          //     className="absolute top-0 left-0 p-1 outline-none focus:outline-none"
-                          //   >
-                          //     <CloseIcon />
-                          //   </button>
-                          //   <p className="text-md w-full">{el.text}</p>
-
-                          // <div>
-                          //   <AccessTimeIcon className="ml-2" />
-                          //   <Moment locale="ar" fromNow>
-                          //     {el?.createdAt}
-                          //   </Moment>
-                          // </div>
-
-                          // {el.type === "rate" && (
-                          //   <SendRate taskId={el.taskId} id={el._id} />
-                          // )}
-                          // </div>
-                          <div
-                            onMouseOver={() =>
-                              handleMouseOver(el.notifId, el.seen)
-                            }
-                            className="w-96 p-2 bg-secondar text-right shadow-md rounded-md flex flex-wrap items-center m-2"
-                          >
-                            <div dir="auto" className=" px-2 w-full mb-2">
-                              <p>{el.text}</p>
-                            </div>
-                            {el.type === "rate" && (
-                              <div className="mb-2">
-                                <SendRate taskId={el.taskId} id={el._id} />
+                        notification
+                          .map((el) => (
+                            <div
+                              key={el._id}
+                              onMouseOver={() =>
+                                handleMouseOver(el.notifId, el.seen)
+                              }
+                              className=" relative w-96 p-2 bg-secondar text-right shadow-md rounded-md flex flex-wrap items-center m-2"
+                            >
+                              <div dir="auto" className=" px-2 w-full mb-2">
+                                {el.type === "connection" ? (
+                                  <NavLink to={`/tasker/${el.taskerId}`}>
+                                    {el.text}
+                                  </NavLink>
+                                ) : (
+                                  <p>{el.text}</p>
+                                )}
                               </div>
-                            )}
-                            <div className="px-2 w-full">
-                              <button
-                                onClick={() => handleDelNotification(el._id)}
-                                className="absolute top-0 left-0 p-1 outline-none focus:outline-none"
-                              >
-                                <CloseIcon />
-                              </button>
-                              <div className="text-sm ">
-                                <AccessTimeIcon className="ml-2" />
-                                <Moment locale="ar" fromNow>
-                                  {el?.createdAt}
-                                </Moment>
+                              {el.type === "rate" && (
+                                <div className="mb-2">
+                                  <SendRate taskId={el.taskId} id={el._id} />
+                                </div>
+                              )}
+                              <div className=" px-2 w-full">
+                                <button
+                                  onClick={() => handleDelNotification(el._id)}
+                                  className="absolute top-0 left-0  outline-none focus:outline-none"
+                                >
+                                  <CloseIcon />
+                                </button>
+                                <div className="text-sm ">
+                                  <AccessTimeIcon className="ml-2" />
+                                  <Moment locale="ar" fromNow>
+                                    {el?.createdAt}
+                                  </Moment>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          ))
+                          .reverse()}
                     </div>
                   )}
                 </div>

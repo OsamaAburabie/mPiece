@@ -11,6 +11,7 @@ function AuthContextProvider(props) {
   const [connections, setConnections] = useState(null);
   const [notification, setNotification] = useState(null);
   const [myToken, setMyToken] = useState(null);
+  const [myId, setMyId] = useState(null);
 
   //get the tokey frrom local storage and send to the checking end point to check if its a valid token.
   const checkLoggedIn = async () => {
@@ -34,6 +35,7 @@ function AuthContextProvider(props) {
       setPendingCon(tokenRes.data.pendingConnections);
       setConnections(tokenRes.data.connections);
       setNotification(tokenRes.data.notifications);
+      setMyId(tokenRes.data.id);
       setLoggedIn(true);
 
       //==============================
@@ -62,6 +64,7 @@ function AuthContextProvider(props) {
         setPendingCon,
         notification,
         setNotification,
+        myId,
       }}
     >
       {props.children}

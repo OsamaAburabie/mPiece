@@ -9,6 +9,8 @@ import ReactPlaceholder from "react-placeholder";
 import "react-placeholder/lib/reactPlaceholder.css";
 import "./skelton.css";
 import { useState } from "react";
+import Moment from "react-moment";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 function TaskerAdCard({
   title,
   price,
@@ -18,6 +20,7 @@ function TaskerAdCard({
   taskerId,
   categoryId,
   adId,
+  date,
 }) {
   const [loading, setLoading] = useState(true);
 
@@ -46,7 +49,7 @@ function TaskerAdCard({
             <div className="overflow-hidden max-h-24 md:max-h-18">
               <p className="text-xl ">{title}</p>
             </div>
-            <div className="w-full flex md:block flex-wrap">
+            <div className="w-full  flex md:block flex-wrap">
               <p className="ml-2 md:ml-0">
                 <LocationOnIcon className="ml-1" />
                 {location}
@@ -55,10 +58,14 @@ function TaskerAdCard({
                 <LocalAtmIcon className="ml-1" />
                 {price}د/س
               </p>
-              <div className="w-full flex my-2">
-                <span className="ml-2 bg-primary p-1 rounded-md">المنزل</span>
+              <div className="w-full flex mt-3">
+                {/* <span className="ml-2 bg-primary p-1 rounded-md">المنزل</span>
                 <span className="ml-2 bg-primary p-1 rounded-md">مكيفات</span>
-                <span className="ml-2 bg-primary p-1 rounded-md">تصليح</span>
+                <span className="ml-2 bg-primary p-1 rounded-md">تصليح</span> */}
+                <AccessTimeIcon className="ml-2" />
+                <Moment locale="ar" format="YYYY/MM/DD">
+                  {date}
+                </Moment>
               </div>
               <NavLink
                 to={`/services/${adId}/${taskerId}`}

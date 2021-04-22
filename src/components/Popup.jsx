@@ -86,19 +86,19 @@ export default function Popup({ disable, taskerId, success }) {
                   <div className=" flex justify-center items-center w-full">
                     <form onSubmit={book} className="flex flex-wrap w-80">
                       <input
-                        className="w-full mb-3 border  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full mb-3 border  p-2 rounded-md  outline-none"
                         type="text"
                         placeholder="ماذا تريد تحديدا؟"
                         onChange={(e) => setTitle(e.target.value)}
                       />
                       <input
-                        className="w-full mb-3 border  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full mb-3 border  p-2 rounded-md  outline-none"
                         type="text"
                         placeholder="الموقع"
                         onChange={(e) => setLocation(e.target.value)}
                       />
                       <textarea
-                        className="w-full border  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full border  p-2 rounded-md  outline-none"
                         placeholder="التفاصيل (اختياري)"
                         cols="30"
                         rows="5"
