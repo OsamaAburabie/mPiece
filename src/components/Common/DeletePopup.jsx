@@ -5,7 +5,7 @@ import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
 import { useHistory } from "react-router";
 
-export default function DeletePopup({ id }) {
+export default function DeletePopup({ id, handleShow }) {
   const [open, setOpen] = useState(true);
   const history = useHistory();
 
@@ -31,10 +31,16 @@ export default function DeletePopup({ id }) {
       .then((res) => {
         setOpen(false);
         history.push("/");
+        checkLoggedIn();
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleShit = () => {
+    setOpen(false);
+    handleShow();
   };
 
   return (
@@ -45,7 +51,7 @@ export default function DeletePopup({ id }) {
         className="fixed z-10 inset-0 overflow-y-auto"
         initialFocus={cancelButtonRef}
         open={open}
-        onClose={setOpen}
+        onClose={handleShit}
       >
         <div className="flex items-end  justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -108,7 +114,7 @@ export default function DeletePopup({ id }) {
                 <button
                   type="button"
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setOpen(false)}
+                  onClick={() => handleShit()}
                   ref={cancelButtonRef}
                 >
                   تراجع

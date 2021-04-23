@@ -66,7 +66,7 @@ function SingleAd() {
     if (!isLoggedIn) {
       setError(true);
     } else {
-      setPopOpen(true);
+      setPopOpen(!popOpen);
     }
   };
   const handleDisable = () => {

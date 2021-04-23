@@ -22,6 +22,10 @@ const Navbar = () => {
   const [mobuleMenue, setMobileMenue] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
+  const handleShow = () => {
+    setShowPopup(!showPopup);
+  };
+
   const {
     isLoggedIn,
     role,
@@ -481,7 +485,7 @@ const Navbar = () => {
           </div>
         )}
       </nav>
-      {showPopup && <NewAdPopup />}
+      {showPopup && <NewAdPopup handleShow={handleShow} />}
     </>
   );
 };

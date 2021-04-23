@@ -54,24 +54,26 @@ function Messages({ messages, taskerId, myTaskId }) {
       dir="rtl"
       className=" w-full md:w-7/12 p-10 bg-secondary text-secondary shadow-md rounded-lg mb-10"
     >
-      <div className="max-h-96 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent overflow-y-auto mb-3">
-        {myMessage &&
-          myMessage.map((el) => (
-            <div key={el._id} className=" mb-4  w-full">
-              <div className="bg-primary p-3 rounded-2xl shadow-sm">
-                <p>
-                  <span className="ml-2">{el.username}:</span>
-                  {el.text}
-                </p>
-                {/* <AccessTimeIcon className="ml-2" /> */}
-                <div dir="ltr">
-                  <Moment locale="en" format="LT ">
-                    {el?.createdAt}
-                  </Moment>
+      <div className="h-80 grid place-items-end  scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent overflow-y-auto mb-3">
+        <div className="w-full">
+          {myMessage &&
+            myMessage.map((el) => (
+              <div key={el._id} className=" mb-4  w-full">
+                <div className="bg-primary p-3 rounded-2xl shadow-sm">
+                  <p>
+                    <span className="ml-2">{el.username}:</span>
+                    {el.text}
+                  </p>
+                  {/* <AccessTimeIcon className="ml-2" /> */}
+                  <div dir="ltr">
+                    <Moment locale="en" format="LT ">
+                      {el?.createdAt}
+                    </Moment>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
       <div dir="rtl" className="w-full flex flex-wrap ">
         <form onSubmit={handleSubmit} dir="rtl" className="w-full flex ">

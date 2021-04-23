@@ -65,6 +65,10 @@ function TaskTrack() {
       });
     getTaskerInfo();
   }, []);
+
+  const handleShow = () => {
+    setShow(!show);
+  };
   if (loading) return <div className=" bg-primary h-screen"></div>;
   if (loadingError)
     return (
@@ -85,89 +89,91 @@ function TaskTrack() {
     );
 
   return (
-    <div className=" w-screen flex justify-center flex-wrap p-4">
-      <div className="w-full h-72 p-4 bg-secondary text-secondary grid place-items-center text-center">
-        <div>
-          <img
-            src={tasker?.img}
-            alt="anything"
-            className="w-28 h-28 md:w-40 md:h-40 object-cover rounded-full"
-          />
-          <p className="text-2xl">{tasker?.name}</p>
-          <Rating name="read-only" value={rating} readOnly />
+    <>
+      <div className=" w-screen flex justify-center flex-wrap p-4">
+        <div className="w-full h-72 p-4 bg-secondary text-secondary grid place-items-center text-center">
+          <div>
+            <img
+              src={tasker?.img}
+              alt="anything"
+              className="w-28 h-28 md:w-40 md:h-40 object-cover rounded-full"
+            />
+            <p className="text-2xl">{tasker?.name}</p>
+            <Rating name="read-only" value={rating} readOnly />
+          </div>
+          <div>
+            <p className="text-2xl">
+              اَخر ظهور:
+              <span className="mr-2">
+                (
+                <Moment locale="ar" fromNow>
+                  {tasker?.lastLogin}
+                </Moment>
+                )
+              </span>
+            </p>
+          </div>
         </div>
-        <div>
-          <p className="text-2xl">
-            اَخر ظهور:
-            <span className="mr-2">
-              (
-              <Moment locale="ar" fromNow>
-                {tasker?.lastLogin}
-              </Moment>
-              )
-            </span>
-          </p>
-        </div>
-      </div>
-      <div className="w-full flex justify-center my-10">
-        <div className=" w-full md:w-7/12  grid grid-cols-2 md:grid-cols-3 gap-3 ">
-          {tasks &&
-            tasks.map((el) => (
-              <div
-                dir="rtl"
-                key={el._id}
-                className={`${
-                  el?._id === myTask?._id ? "bg-btn text-btn" : "bg-secondary"
-                }  relative col-span-1 p-3 flex justify-center items-center flex-wrap h-32  text-secondary shadow-sm`}
-              >
-                {el.working === 2 && (
-                  <div className="absolute -top-5 -left-5 p-2 bg-green-600 text-white shadow-md">
-                    <p> جار العمل</p>
-                  </div>
-                )}
-                {el?._id === myTask?._id && (
-                  <button
-                    onClick={() => setShow(true)}
-                    className="absolute top-0 right-0 p-2 focus:outline-none"
-                  >
-                    <CloseIcon />
-                  </button>
-                )}
-                <div>
-                  <p>
-                    <WorkIcon />
-                    المهمة:<span className="mr-1">{el.title}</span>
-                  </p>
-                  <p>
-                    <LocationOnIcon />
-                    الموقع:
-                    <span className="mr-1">{el.location}</span>
-                  </p>
-
-                  {el.estimatedTime && (
-                    <p>
-                      <WatchLaterIcon />
-                      <span> ينتهي </span>
-                      <span className="">
-                        <Moment locale="ar" fromNow>
-                          {el.estimatedTime}
-                        </Moment>
-                      </span>
-                      <span> تقريباً</span>
-                    </p>
+        <div className="w-full flex justify-center my-10">
+          <div className=" w-full md:w-7/12  grid grid-cols-2 md:grid-cols-3 gap-3 ">
+            {tasks &&
+              tasks.map((el) => (
+                <div
+                  dir="rtl"
+                  key={el._id}
+                  className={`${
+                    el?._id === myTask?._id ? "bg-btn text-btn" : "bg-secondary"
+                  }  relative col-span-1 p-3 flex justify-center items-center flex-wrap h-32  text-secondary shadow-sm`}
+                >
+                  {el.working === 2 && (
+                    <div className="absolute -top-5 -left-5 p-2 bg-green-600 text-white shadow-md">
+                      <p> جار العمل</p>
+                    </div>
                   )}
+                  {el?._id === myTask?._id && (
+                    <button
+                      onClick={() => setShow(!show)}
+                      className="absolute top-0 right-0 p-2 focus:outline-none"
+                    >
+                      <CloseIcon />
+                    </button>
+                  )}
+                  <div>
+                    <p>
+                      <WorkIcon />
+                      المهمة:<span className="mr-1">{el.title}</span>
+                    </p>
+                    <p>
+                      <LocationOnIcon />
+                      الموقع:
+                      <span className="mr-1">{el.location}</span>
+                    </p>
+
+                    {el.estimatedTime && (
+                      <p>
+                        <WatchLaterIcon />
+                        <span> ينتهي </span>
+                        <span className="">
+                          <Moment locale="ar" fromNow>
+                            {el.estimatedTime}
+                          </Moment>
+                        </span>
+                        <span> تقريباً</span>
+                      </p>
+                    )}
+                  </div>
                 </div>
-                {show && <DeletePopup id={myTask?._id} />}
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
+        <Messages
+          messages={myTask && myTask?.messages}
+          myTaskId={myTask && myTask?._id}
+          taskerId={taskerId}
+        />
       </div>
-      <Messages
-        messages={myTask && myTask?.messages}
-        myTaskId={myTask && myTask?._id}
-        taskerId={taskerId}
-      />
-    </div>
+      {show && <DeletePopup handleShow={handleShow} id={myTask?._id} />}
+    </>
   );
 }
 
