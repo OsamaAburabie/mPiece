@@ -131,27 +131,27 @@ export default function Popup({ disable, taskerId, success, handleShow }) {
                 )}
                 <div className="sm:flex sm:items-start">
                   <div className=" flex justify-center items-center w-full">
-                    <form onSubmit={book} className="flex flex-wrap w-80">
+                    <form onSubmit={book} className="flex flex-wrap w-96">
                       <input
-                        className="w-full mb-3 border text-secondary  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full mb-3 border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                         type="text"
                         placeholder="العنوان"
                         onChange={(e) => setTitle(e.target.value)}
                       />
                       <input
-                        className="w-full mb-3 border text-secondary  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full mb-3  border-none  p-3 rounded-md   bg-primary text-primary  outline-none"
                         type="text"
                         placeholder="الموقع"
                         onChange={(e) => setLocation(e.target.value)}
                       />
                       <input
-                        className="w-full mb-3 border text-secondary  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full mb-3  border-none  p-3 rounded-md   bg-primary text-primary  outline-none"
                         type="number"
                         placeholder="السعر د.أ"
                         onChange={(e) => setPrice(e.target.value)}
                       />
                       <select
-                        className="w-full mb-3 border text-secondary  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full mb-3  border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                         onChange={(e) => {
                           setCatId(e.target.value);
                         }}
@@ -167,13 +167,13 @@ export default function Popup({ disable, taskerId, success, handleShow }) {
                         إدراج صورة (اختياري)
                       </label>
                       <input
-                        className="w-full mb-3 border text-secondary  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full mb-3  border-none  p-3 rounded-md   bg-primary text-primary  outline-none"
                         onChange={fileSelected}
                         type="file"
                         accept="image/*"
                       ></input>
                       <textarea
-                        className="w-full border text-secondary  p-2 rounded-md bg-secondary outline-none"
+                        className="w-full  border-none  p-3 rounded-md   bg-primary text-primary  outline-none"
                         placeholder="التفاصيل"
                         cols="30"
                         rows="5"

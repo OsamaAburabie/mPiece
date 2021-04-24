@@ -101,7 +101,7 @@ function SingleAd() {
               <div className="w-full md:max-w-full md:block  ">
                 <div
                   dir="rtl"
-                  className="con__card max-h-full md:block bg-secondary  rounded-xl shadow-md"
+                  className="con__card max-h-full md:block bg-secondary  shadow-sm"
                 >
                   <div className="con__card__upper">
                     <img

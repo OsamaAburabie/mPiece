@@ -25,8 +25,9 @@ function Routes() {
       </div>
     );
   }
+
   return (
-    <div className="bg-primary ">
+    <div className="bg-primary min-h-screen  ">
       <BrowserRouter>
         <Navbar />
         <Switch>

@@ -101,10 +101,10 @@ function Messages({ messages, taskerId, myTaskId }) {
             value={text}
             type="text"
             placeholder="ارسل رساله"
-            className="p-2 w-full text-black focus:outline-none border ml-2"
+            className="p-3 w-full text-primary bg-primary focus:outline-none border-none ml-2"
             onChange={(e) => setText(e.target.value)}
           />
-          <button className="p-2 bg-primary w-11 rounded-full">
+          <button className="p-2 bg w-11 ">
             <SendIcon className="transform rotate-180" />
           </button>
         </form>

@@ -29,5 +29,5 @@
 @import "tailwindcss/utilities";
 
 .card {
-  @apply rounded bg-white border-gray-200 shadow-md overflow-hidden relative;
+  @apply rounded bg-secondary border-gray-200 text-secondary shadow-md overflow-hidden relative;
 }

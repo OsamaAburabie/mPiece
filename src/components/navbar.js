@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext } from "react";
 import Toggle from "../components/toggle";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import Logo from "../images/maham.png";
+import LogoDark from "../images/mahamDark.png";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { Badge, IconButton } from "@material-ui/core";
@@ -14,6 +15,7 @@ import "moment/locale/ar";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import NewAdPopup from "../components/Tasker/NewAdPopup";
 import WorkIcon from "@material-ui/icons/Work";
+import { ThemeContext } from "../contexts/themeContext";
 
 const Navbar = () => {
   const ref = useRef();
@@ -38,6 +40,7 @@ const Navbar = () => {
     setNotification,
     setLoggedIn,
   } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   const logout = async () => {
     localStorage.setItem("auth-token", "");
@@ -157,12 +160,12 @@ const Navbar = () => {
               <div className="flex-shrink-0 flex items-center ml-3">
                 <img
                   className="block lg:hidden h-8 w-auto"
-                  src={Logo}
+                  src={theme === "dark" ? LogoDark : Logo}
                   alt="Workflow"
                 />
                 <img
                   className="hidden lg:block h-10 w-auto"
-                  src={Logo}
+                  src={theme === "dark" ? LogoDark : Logo}
                   alt="Workflow"
                 />
               </div>
@@ -198,6 +201,15 @@ const Navbar = () => {
                   >
                     حول
                   </NavLink>
+
+                  {role === "tasker" && (
+                    <NavLink
+                      to="/manageTasks"
+                      className="text-white focus:outline-none bg-btn  px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      مهامي
+                    </NavLink>
+                  )}
 
                   {role === "tasker" && (
                     <button

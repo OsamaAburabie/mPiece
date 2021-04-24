@@ -53,12 +53,12 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
     handleShow();
   };
 
-  const ChangeStatus = (e) => {
-    //the backend will response with the changed status then it will be set to ticketStatus state
+  const handleUpdate = (e) => {
+    e.preventDefault();
     axios
       .put(
         `http://localhost:5000/users/editTask/${taskId}`,
-        { working: e.target.value },
+        { working, menutes: parseInt(estimatedTime) },
         {
           headers: { "x-auth-token": myToken },
         }
@@ -66,16 +66,14 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
       .then((res) => {
         setWorking(res.data.working);
         fetching();
+        handleShit();
       })
       .catch((err) => err.response.data.msg && console.log(err));
   };
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    console.log();
+  const markAsDone = () => {
     axios
       .put(
-        `http://localhost:5000/users/editTask/${taskId}`,
+        `http://localhost:5000/users/doneTask/${taskId}`,
         { working, menutes: parseInt(estimatedTime) },
         {
           headers: { "x-auth-token": myToken },
@@ -147,14 +145,14 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
                           SetChangeButton(true);
                         }}
                         value={working}
-                        className="w-full mb-2 border  p-2 rounded-md  bg-secondary text-secondary outline-none"
+                        className="w-full mb-2 border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                       >
                         <option value={1}>معلق</option>
                         <option value={2}>جار العمل</option>
                       </select>
                       <input
                         value={estimatedTime}
-                        className="w-full mb-2 border  p-2 rounded-md  bg-secondary text-secondary outline-none"
+                        className="w-full mb-2  border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                         type="number"
                         placeholder="الوقت المقدر بالدقائق"
                         onChange={(e) => {
@@ -181,6 +179,23 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="bg-primary w-full  py-3 px-6 flex flex-row justify-between md:justify-start">
+                <button
+                  type="button"
+                  className="  inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  sm:mt-0 ml-3 sm:w-auto sm:text-sm"
+                  onClick={() => handleShit()}
+                  ref={cancelButtonRef}
+                >
+                  رجوع
+                </button>
+                <button
+                  type="button"
+                  className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none  sm:w-auto sm:text-sm"
+                  onClick={() => markAsDone()}
+                >
+                  انهاء المهمة
+                </button>
               </div>
             </div>
           </Transition.Child>

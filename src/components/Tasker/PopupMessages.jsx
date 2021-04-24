@@ -48,7 +48,7 @@ function PopupMessages({ messages, TaskId }) {
 
   return (
     <>
-      <div className="h-60 text-secondary">
+      <div className="h-72 text-secondary">
         <ScrollableFeed className="w-full scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent overflow-y-auto">
           {myMessage &&
             myMessage.map((el) => (
@@ -85,9 +85,9 @@ function PopupMessages({ messages, TaskId }) {
             onChange={(e) => setText(e.target.value)}
             type="text "
             placeholder="ارسل رساله"
-            className="w-full border bg-secondary text-secondary  p-2 rounded-md  outline-none"
+            className="w-full  border-none  p-3 rounded-md   bg-secondary text-secondary outline-none"
           />
-          <button className="p-2  text-primary w-11 " type="submit">
+          <button className="p-2  text-secondary w-11 " type="submit">
             <SendIcon className="transform rotate-180" />
           </button>
         </form>

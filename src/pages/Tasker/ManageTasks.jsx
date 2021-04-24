@@ -105,7 +105,7 @@ function ManageTasks() {
 
   return (
     <>
-      <div className=" w-screen flex justify-center flex-wrap p-4">
+      <div className=" w-screen h-screen  p-4">
         <div className="w-full h-72 p-4 bg-secondary text-secondary grid place-items-center text-center">
           <div>
             <img
@@ -118,7 +118,7 @@ function ManageTasks() {
           </div>
         </div>
         <div className="w-full flex justify-center my-10">
-          <div className=" w-full md:w-10/12  grid grid-cols-2 md:grid-cols-3 gap-3 ">
+          <div className=" w-full md:w-10/12  grid grid-cols-1 md:grid-cols-3 gap-3 ">
             {tasks &&
               tasks.map((el) => (
                 <div
