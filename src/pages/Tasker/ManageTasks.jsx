@@ -105,7 +105,7 @@ function ManageTasks() {
 
   return (
     <>
-      <div className=" w-screen h-screen  p-4">
+      <div className=" w-screen   p-4">
         <div className="w-full h-72 p-4 bg-secondary text-secondary grid place-items-center text-center">
           <div>
             <img
@@ -118,7 +118,7 @@ function ManageTasks() {
           </div>
         </div>
         <div className="w-full flex justify-center my-10">
-          <div className=" w-full md:w-10/12  grid grid-cols-1 md:grid-cols-3 gap-3 ">
+          <div className=" w-full md:w-9/12  grid grid-cols-1 md:grid-cols-3 gap-3 bg-secondary h-96 p-3 ">
             {tasks &&
               tasks.map((el) => (
                 <div
@@ -126,8 +126,8 @@ function ManageTasks() {
                   dir="rtl"
                   key={el._id}
                   className={`${
-                    el?._id === myTask?._id ? "bg-btn text-btn" : "bg-secondary"
-                  }  relative col-span-1 p-3 flex justify-center items-center flex-wrap h-32  text-secondary shadow-sm cursor-pointer hover:bg-btn hover:text-btn transition duration-300 ease-in-out	`}
+                    el?._id === myTask?._id ? "bg-btn text-btn" : "bg-primary"
+                  }  relative col-span-1 p-3 flex justify-center items-center flex-wrap h-32   text-primary shadow-sm cursor-pointer hover:bg-btn hover:text-btn transition duration-300 ease-in-out	`}
                 >
                   {el.working === 2 && (
                     <div className="absolute -top-5 left-0 p-2 bg-green-600 text-white shadow-md">
@@ -183,11 +183,6 @@ function ManageTasks() {
               ))}
           </div>
         </div>
-        {/* <Messages
-          messages={myTask && myTask?.messages}
-          myTaskId={myTask && myTask?._id}
-          taskerId={taskerId}
-        /> */}
       </div>
       {show && <DeletePopup handleShow={handleShow} id={myTask?._id} />}
       {showChat && (
