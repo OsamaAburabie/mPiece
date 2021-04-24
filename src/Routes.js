@@ -11,9 +11,10 @@ import Services from "./pages/Services";
 import TaskerAds from "./pages/TaskerAds";
 import SingleAd from "./pages/SingleAd";
 import NotFound from "./pages/NotFound";
-import TaskTrack from "./pages/Tasker/TaskTrack";
+import TaskTrack from "./pages/Customer/TaskTrack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Popup from "./components/Tasker/PendingPopup";
+import ManageTasks from "./pages/Tasker/ManageTasks";
 
 function Routes() {
   const { isLoggedIn, role, pendingCon } = useContext(AuthContext);
@@ -37,6 +38,7 @@ function Routes() {
           <Route path="/services/:catId" exact component={TaskerAds} />
           <Route path="/services/:adId/:taskerId" component={SingleAd} />
           <Route path="/tasker/:taskerId" exact component={TaskTrack} />
+          <Route path="/manageTasks" exact component={ManageTasks} />
           <Route path="/NotFound404" component={NotFound} />
         </Switch>
         <Footer />

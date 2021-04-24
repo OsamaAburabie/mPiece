@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import Toggle from "../components/toggle";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import Logo from "../images/logo.png";
+import Logo from "../images/maham.png";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { Badge, IconButton } from "@material-ui/core";
@@ -161,7 +161,7 @@ const Navbar = () => {
                   alt="Workflow"
                 />
                 <img
-                  className="hidden lg:block h-8 w-auto"
+                  className="hidden lg:block h-10 w-auto"
                   src={Logo}
                   alt="Workflow"
                 />

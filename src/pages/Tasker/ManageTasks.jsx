@@ -11,8 +11,11 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import DeletePopup from "../../components/Common/DeletePopup";
 import CloseIcon from "@material-ui/icons/Close";
+import ChatPopup from "../../components/Tasker/ChatPopup";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import { Badge, IcؤonButton } from "@material-ui/core";
 
-function TaskTrack() {
+function ManageTasks() {
   const { taskerId } = useParams();
 
   const [tasks, setTasks] = useState([]);
@@ -20,6 +23,8 @@ function TaskTrack() {
   const [tasker, setTasker] = useState({});
   const [rating, setRating] = useState(0);
   const [show, setShow] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [selectedTask, setSelctedTask] = useState("");
 
   const {
     isLoggedIn,
@@ -41,15 +46,14 @@ function TaskTrack() {
 
   const getTaskerInfo = async () => {
     const res = await axios.get(
-      `http://localhost:5000/users/taskerInfo/${taskerId}`
+      `http://localhost:5000/users/taskerInfo/${myId}`
     );
     setTasker(res.data.tasker);
     setRating(res.data.tasker.rating.sum);
   };
-
-  useEffect(() => {
+  const fetchTasks = () => {
     axios
-      .get(`http://localhost:5000/users/getTaskerTodos/${taskerId}`, {
+      .get(`http://localhost:5000/users/myTasks`, {
         headers: {
           "x-auth-token": myToken,
         },
@@ -63,21 +67,32 @@ function TaskTrack() {
         setLoading(false);
         setLoadingError(true);
       });
+  };
+  useEffect(() => {
+    fetchTasks();
     getTaskerInfo();
   }, []);
 
   const handleShow = () => {
     setShow(!show);
   };
+
+  const handleShowChat = () => {
+    setShowChat(!showChat);
+  };
+
+  const handleTaskPopup = (id) => {
+    setSelctedTask(id);
+    setShowChat(true);
+  };
+
   if (loading) return <div className=" bg-primary h-screen"></div>;
   if (loadingError)
     return (
       <div className=" bg-primary h-screen grid place-items-center text-center">
         <div>
-          <p className="text-3xl text-secondary mb-1">هذه الصفحة غير موجودة</p>
-          <p className="text-1xl text-secondary">
-            أو ان المهمة قد تم انجازها بالفعل
-          </p>
+          <p className="text-3xl text-secondary mb-2">هذه الصفحة غير موجودة</p>
+
           <button
             onClick={() => history.push("/")}
             className="bg-btn text-btn p-2 mt-1 rounded-md"
@@ -101,35 +116,37 @@ function TaskTrack() {
             <p className="text-2xl">{tasker?.name}</p>
             <Rating name="read-only" value={rating} readOnly />
           </div>
-          <div>
-            <p className="text-2xl">
-              اَخر ظهور:
-              <span className="mr-2">
-                (
-                <Moment locale="ar" fromNow>
-                  {tasker?.lastLogin}
-                </Moment>
-                )
-              </span>
-            </p>
-          </div>
         </div>
         <div className="w-full flex justify-center my-10">
-          <div className=" w-full md:w-7/12  grid grid-cols-2 md:grid-cols-3 gap-3 ">
+          <div className=" w-full md:w-10/12  grid grid-cols-2 md:grid-cols-3 gap-3 ">
             {tasks &&
               tasks.map((el) => (
                 <div
+                  onClick={() => handleTaskPopup(el._id)}
                   dir="rtl"
                   key={el._id}
                   className={`${
                     el?._id === myTask?._id ? "bg-btn text-btn" : "bg-secondary"
-                  }  relative col-span-1 p-3 flex justify-center items-center flex-wrap h-32  text-secondary shadow-sm`}
+                  }  relative col-span-1 p-3 flex justify-center items-center flex-wrap h-32  text-secondary shadow-sm cursor-pointer hover:bg-btn hover:text-btn transition duration-300 ease-in-out	`}
                 >
                   {el.working === 2 && (
-                    <div className="absolute -top-5 -left-5 p-2 bg-green-600 text-white shadow-md">
+                    <div className="absolute -top-5 left-0 p-2 bg-green-600 text-white shadow-md">
                       <p> جار العمل</p>
                     </div>
                   )}
+                  {el.working === 1 && (
+                    <div className="absolute -top-5 left-0 p-2 bg-red-600 text-white shadow-md">
+                      <p>معلق</p>
+                    </div>
+                  )}
+                  {el.notification === 1 && (
+                    <div className="absolute -top-5 right-1/2 p-2   ">
+                      <Badge badgeContent="جديد" color="secondary">
+                        <NotificationsIcon className="text-primary" />
+                      </Badge>
+                    </div>
+                  )}
+
                   {el?._id === myTask?._id && (
                     <button
                       onClick={() => setShow(!show)}
@@ -166,15 +183,22 @@ function TaskTrack() {
               ))}
           </div>
         </div>
-        <Messages
+        {/* <Messages
           messages={myTask && myTask?.messages}
           myTaskId={myTask && myTask?._id}
           taskerId={taskerId}
-        />
+        /> */}
       </div>
       {show && <DeletePopup handleShow={handleShow} id={myTask?._id} />}
+      {showChat && (
+        <ChatPopup
+          handleShow={handleShowChat}
+          taskId={selectedTask}
+          fetching={fetchTasks}
+        />
+      )}
     </>
   );
 }
 
-export default TaskTrack;
+export default ManageTasks;

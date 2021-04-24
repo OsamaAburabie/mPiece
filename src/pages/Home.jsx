@@ -89,25 +89,121 @@ function Home() {
           </Formik>
         </div>
       </section>
-      <p className="w-full  text-center py-8 text-4xl text-secondary ">
-        خدمات رائجة في منطقتك
-      </p>
-      {/* <div class="flex flex-wrap justify-center p-8"> */}
-      {/* <div class="grid grid-cols-1 md:grid-cols-4 place-items-center gap-4 p-8"> */}
-      <div className="flex items-center justify-center flex-wrap  ">
-        <>
-          <HomeCard />
 
-          <HomeCard />
+      <div className="grid md:grid-cols-4">
+        <main className="px-16 py-6 md:col-span-4 ">
+          <p className="w-full  text-center text-5xl text-secondary ">
+            خدماتنا
+          </p>
 
-          <HomeCard />
-
-          <HomeCard />
-
-          <HomeCard />
-
-          <HomeCard />
-        </>
+          <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-4">
+            {/* cards go here */}
+            <div className="card">
+              <img
+                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
+                alt="stew"
+                className="h-32 sm:h-48 w-full object-cover"
+              />
+              <div className="m-4">
+                <span className="font-bold">5 Bean Chili Stew</span>
+                <span className="block text-gray-500 text-sm">
+                  Recipe by Mario
+                </span>
+              </div>
+            </div>
+            <div className="card">
+              <img
+                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
+                alt="stew"
+                className="h-32 sm:h-48 w-full object-cover"
+              />
+              <div className="m-4">
+                <span className="font-bold">5 Bean Chili Stew</span>
+                <span className="block text-gray-500 text-sm">
+                  Recipe by Mario
+                </span>
+              </div>
+            </div>
+            <div className="card">
+              <img
+                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
+                alt="stew"
+                className="h-32 sm:h-48 w-full object-cover"
+              />
+              <div className="m-4">
+                <span className="font-bold">5 Bean Chili Stew</span>
+                <span className="block text-gray-500 text-sm">
+                  Recipe by Mario
+                </span>
+              </div>
+            </div>
+            <div className="card">
+              <img
+                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
+                alt="stew"
+                className="h-32 sm:h-48 w-full object-cover"
+              />
+              <div className="m-4">
+                <span className="font-bold">5 Bean Chili Stew</span>
+                <span className="block text-gray-500 text-sm">
+                  Recipe by Mario
+                </span>
+              </div>
+            </div>
+            <div className="card">
+              <img
+                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
+                alt="stew"
+                className="h-32 sm:h-48 w-full object-cover"
+              />
+              <div className="m-4">
+                <span className="font-bold">5 Bean Chili Stew</span>
+                <span className="block text-gray-500 text-sm">
+                  Recipe by Mario
+                </span>
+              </div>
+            </div>
+            <div className="card">
+              <img
+                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
+                alt="stew"
+                className="h-32 sm:h-48 w-full object-cover"
+              />
+              <div className="m-4">
+                <span className="font-bold">5 Bean Chili Stew</span>
+                <span className="block text-gray-500 text-sm">
+                  Recipe by Mario
+                </span>
+              </div>
+            </div>
+            <div className="card">
+              <img
+                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
+                alt="stew"
+                className="h-32 sm:h-48 w-full object-cover"
+              />
+              <div className="m-4">
+                <span className="font-bold">5 Bean Chili Stew</span>
+                <span className="block text-gray-500 text-sm">
+                  Recipe by Mario
+                </span>
+              </div>
+            </div>
+            <div className="card">
+              <img
+                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
+                alt="stew"
+                className="h-32 sm:h-48 w-full object-cover"
+              />
+              <div className="m-4">
+                <span className="font-bold">5 Bean Chili Stew</span>
+                <span className="block text-gray-500 text-sm">
+                  Recipe by Mario
+                </span>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     </>
   );
