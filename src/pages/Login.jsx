@@ -47,7 +47,7 @@ const Login = () => {
       <div className="h-screen flex bg-gray-bg1">
         <div
           dir="rtl"
-          className="w-full max-w-md m-auto bg-secondary rounded-lg border border-primaryBorder shadow-default py-10 px-16"
+          className="w-full max-w-md m-auto bg-secondary rounded-lg  shadow-default py-10 px-16"
         >
           <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
             تسجيل الدخول
@@ -59,7 +59,7 @@ const Login = () => {
               <input
                 value={email}
                 type="email"
-                className={`w-full p-2  border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 mt-1`}
+                className="w-full mb-2  border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                 id="email"
                 placeholder="بريدك"
                 onChange={(e) => setEmail(e.target.value)}
@@ -70,7 +70,7 @@ const Login = () => {
               <input
                 value={password}
                 type="password"
-                className={`w-full p-2  border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 mt-1`}
+                className="w-full mb-2  border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                 id="password"
                 placeholder="كلمه مرورك"
                 onChange={(e) => setPassword(e.target.value)}

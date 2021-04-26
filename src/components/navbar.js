@@ -3,7 +3,7 @@ import Toggle from "../components/toggle";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import Logo from "../images/maham.png";
 import LogoDark from "../images/mahamDark.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { Badge, IconButton } from "@material-ui/core";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -23,6 +23,7 @@ const Navbar = () => {
   const [pendingMenue, setPendingMenue] = useState(false);
   const [mobuleMenue, setMobileMenue] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const history = useHistory();
 
   const handleShow = () => {
     setShowPopup(!showPopup);
@@ -46,6 +47,7 @@ const Navbar = () => {
     localStorage.setItem("auth-token", "");
     checkLoggedIn();
     setLoggedIn(undefined);
+    history.push("/");
   };
 
   useOnClickOutside(ref, () => setProfileMenueOpen(false));
@@ -159,17 +161,17 @@ const Navbar = () => {
             <div className="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
               <div className="flex-shrink-0 flex items-center ml-3">
                 <img
-                  className="block lg:hidden h-8 w-auto"
+                  className="block lg:hidden h-16 w-auto"
                   src={theme === "dark" ? LogoDark : Logo}
                   alt="Workflow"
                 />
                 <img
-                  className="hidden lg:block h-10 w-auto"
+                  className="hidden lg:block h-16 w-auto"
                   src={theme === "dark" ? LogoDark : Logo}
                   alt="Workflow"
                 />
               </div>
-              <div className="hidden md:block md:ml-6">
+              <div className="hidden md:flex items-center md:ml-6">
                 <div className="flex space-x-4">
                   {/* Current: "bg-primary text-primary", Default: "text-secondary hover:bg-primary hover:text-primary" */}
                   <NavLink
@@ -202,7 +204,7 @@ const Navbar = () => {
                     حول
                   </NavLink>
 
-                  {role === "tasker" && (
+                  {isLoggedIn && role === "tasker" && (
                     <NavLink
                       to="/manageTasks"
                       className="text-white focus:outline-none bg-btn  px-3 py-2 rounded-md text-sm font-medium"
@@ -211,7 +213,7 @@ const Navbar = () => {
                     </NavLink>
                   )}
 
-                  {role === "tasker" && (
+                  {isLoggedIn && role === "tasker" && (
                     <button
                       onClick={() => setShowPopup(true)}
                       className="text-white focus:outline-none bg-red-600  px-3 py-2 rounded-md text-sm font-medium"

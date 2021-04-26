@@ -47,7 +47,7 @@ const Register = () => {
       <div className="h-screen flex bg-gray-bg1">
         <div
           dir="rtl"
-          className="w-full max-w-md m-auto bg-secondary rounded-lg border border-primaryBorder shadow-default py-10 px-16"
+          className="w-full max-w-md m-auto bg-secondary rounded-lg  shadow-default py-10 px-16"
         >
           <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
             تسجيل حساب جديدد
@@ -59,7 +59,7 @@ const Register = () => {
               <input
                 value={displayName}
                 type="text"
-                className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 mt-1`}
+                className="w-full mb-2  border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                 placeholder="اسمك"
                 onChange={(e) => setDisplayName(e.target.value)}
               />
@@ -69,7 +69,7 @@ const Register = () => {
               <input
                 value={email}
                 type="email"
-                className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 mt-1`}
+                className="w-full mb-2  border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                 placeholder="بريدك"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -79,7 +79,7 @@ const Register = () => {
               <input
                 value={password}
                 type="password"
-                className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 mt-1`}
+                className="w-full mb-2  border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                 placeholder="كلمه المرور"
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -89,7 +89,7 @@ const Register = () => {
               <input
                 value={passwordCheck}
                 type="password"
-                className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 mt-1`}
+                className="w-full mb-2  border-none  p-3 rounded-md   bg-primary text-primary outline-none"
                 placeholder="كلمه المرور"
                 onChange={(e) => setPasswordCheck(e.target.value)}
               />

@@ -6,6 +6,7 @@ import AuthContext from "../../contexts/AuthContext";
 import { useHistory } from "react-router";
 import SendIcon from "@material-ui/icons/Send";
 import PopupMessages from "./PopupMessages";
+import CloseIcon from "@material-ui/icons/Close";
 
 export default function DeletePopup({ id, handleShow, taskId, fetching }) {
   const [open, setOpen] = useState(true);
@@ -15,18 +16,9 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
   const cancelButtonRef = useRef();
   const [working, setWorking] = useState(undefined);
   const [changeButton, SetChangeButton] = useState(false);
-  const {
-    isLoggedIn,
-    role,
-    username,
-    pendingCon,
-    checkLoggedIn,
-    setPendingCon,
-    myToken,
-    notification,
-    setNotification,
-    setLoggedIn,
-  } = useContext(AuthContext);
+  const { myToken } = useContext(AuthContext);
+
+  console.log(working);
 
   useEffect(() => {
     axios
@@ -55,20 +47,33 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    axios
-      .put(
-        `http://localhost:5000/users/editTask/${taskId}`,
-        { working, menutes: parseInt(estimatedTime) },
-        {
+    if (working === "done") {
+      axios
+        .put(`http://localhost:5000/users/doneTask/${taskId}`, null, {
           headers: { "x-auth-token": myToken },
-        }
-      )
-      .then((res) => {
-        setWorking(res.data.working);
-        fetching();
-        handleShit();
-      })
-      .catch((err) => err.response.data.msg && console.log(err));
+        })
+        .then((res) => {
+          setWorking(res.data.working);
+          fetching();
+          handleShit();
+        })
+        .catch((err) => err.response.data.msg && console.log(err));
+    } else {
+      axios
+        .put(
+          `http://localhost:5000/users/editTask/${taskId}`,
+          { working, menutes: parseInt(estimatedTime) },
+          {
+            headers: { "x-auth-token": myToken },
+          }
+        )
+        .then((res) => {
+          setWorking(res.data.working);
+          fetching();
+          handleShit();
+        })
+        .catch((err) => err.response.data.msg && console.log(err));
+    }
   };
   const markAsDone = () => {
     axios
@@ -109,7 +114,7 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-5 transition-opacity" />
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -132,7 +137,17 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
               dir="rtl"
               className="inline-block align-bottom bg-secondary rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
             >
-              <div className="bg-secondary py-2 px-2 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="w-full flex justify-start p-1">
+                <button
+                  type="button"
+                  className="text-secondary focus:outline-none"
+                  onClick={() => handleShit()}
+                  ref={cancelButtonRef}
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+              <div className="bg-secondary px-2 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className=" flex flex-wrap justify-center items-center w-full">
                     <form
@@ -149,6 +164,7 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
                       >
                         <option value={1}>معلق</option>
                         <option value={2}>جار العمل</option>
+                        <option value="done">منتهي</option>
                       </select>
                       <input
                         value={estimatedTime}
@@ -179,23 +195,6 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="bg-primary w-full  py-3 px-6 flex flex-row justify-between md:justify-start">
-                <button
-                  type="button"
-                  className="  inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  sm:mt-0 ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => handleShit()}
-                  ref={cancelButtonRef}
-                >
-                  رجوع
-                </button>
-                <button
-                  type="button"
-                  className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none  sm:w-auto sm:text-sm"
-                  onClick={() => markAsDone()}
-                >
-                  انهاء المهمة
-                </button>
               </div>
             </div>
           </Transition.Child>

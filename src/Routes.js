@@ -27,26 +27,28 @@ function Routes() {
   }
 
   return (
-    <div className="bg-primary min-h-screen rel  ">
+    <>
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/myConnections" component={Connections} />
-          <Route path="/services" exact component={Services} />
-          <Route path="/services/:catId" exact component={TaskerAds} />
-          <Route path="/services/:adId/:taskerId" component={SingleAd} />
-          <Route path="/tasker/:taskerId" exact component={TaskTrack} />
-          <Route path="/manageTasks" exact component={ManageTasks} />
-          <Route path="/NotFound404" component={NotFound} />
+          <div className="bg-primary min-h-screen  ">
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/myConnections" component={Connections} />
+            <Route path="/services" exact component={Services} />
+            <Route path="/services/:catId" exact component={TaskerAds} />
+            <Route path="/services/:adId/:taskerId" component={SingleAd} />
+            <Route path="/tasker/:taskerId" exact component={TaskTrack} />
+            <Route path="/manageTasks" exact component={ManageTasks} />
+            <Route path="/NotFound404" component={NotFound} />
+          </div>
         </Switch>
         <Footer />
       </BrowserRouter>
 
       {isLoggedIn && role === "tasker" && pendingCon.length > 0 && <Popup />}
-    </div>
+    </>
   );
 }
 
