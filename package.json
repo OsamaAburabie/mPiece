@@ -12,6 +12,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "concurrently": "^6.0.2",
     "formik": "^2.2.6",
     "heroicons-react": "^1.4.0",
     "moment": "^2.29.1",
@@ -25,14 +26,15 @@
     "react-simple-image-viewer": "0.0.8",
     "reactjs-popup": "^2.0.4",
     "simplebar-react": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "styled-components": "^5.2.3",
     "tailwindcss-rtl": "^0.7.3",
-    "socket.io-client": "^2.3.0",
     "web-vitals": "^1.1.1",
     "yup": "^0.32.9"
   },
   "scripts": {
     "start": "craco start",
+    "dev": "concurrently \"npm start\" \"cd backend && nodemon index.js\" \"cd socket-io-chat && nodemon server.js\"",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
