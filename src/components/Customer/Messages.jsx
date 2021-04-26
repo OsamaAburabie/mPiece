@@ -6,10 +6,13 @@ import Moment from "react-moment";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import ChatIcon from "@material-ui/icons/Chat";
 import ScrollableFeed from "react-scrollable-feed";
+import io from "socket.io-client";
+import "./messages.css";
 
-function Messages({ messages, taskerId, myTaskId }) {
+function Messages({ messages, taskerId, taskId }) {
   const [myMessage, setMyMessages] = useState();
   const [text, setText] = useState("");
+  const [socket, setSocket] = useState();
 
   const {
     isLoggedIn,
@@ -26,6 +29,28 @@ function Messages({ messages, taskerId, myTaskId }) {
   } = useContext(AuthContext);
 
   useEffect(() => {
+    if (socket == null) return;
+    socket.on("receive-message", (message) => {
+      setMyMessages((prev) => [...prev, message]);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    const s = io(`http://localhost:8000`);
+    setSocket(s);
+
+    return () => {
+      s.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socket == null) return;
+
+    socket.emit("get-task", taskerId);
+  }, [socket]);
+
+  useEffect(() => {
     setMyMessages(messages);
   }, [messages]);
 
@@ -37,7 +62,7 @@ function Messages({ messages, taskerId, myTaskId }) {
 
     axios
       .post(
-        `http://localhost:5000/users/sendMessage/${myTaskId}/${taskerId}`,
+        `http://localhost:5000/users/sendMessage/${taskId}/${taskerId}`,
         data,
         {
           headers: {
@@ -47,8 +72,8 @@ function Messages({ messages, taskerId, myTaskId }) {
       )
       .then((res) => {
         setMyMessages((prev) => [...prev, res.data]);
-
         setText("");
+        socket.emit("send-message", res.data);
       });
   };
 
@@ -70,6 +95,7 @@ function Messages({ messages, taskerId, myTaskId }) {
             {myMessage &&
               myMessage.map((el) => (
                 <div
+                  key={el._id}
                   className={`w-full grid  ${
                     el.username === username
                       ? "place-items-start"
@@ -77,7 +103,7 @@ function Messages({ messages, taskerId, myTaskId }) {
                   }`}
                 >
                   <div key={el._id} className=" mb-2 md:w-2/5 w-8/12   ">
-                    <div className="bg-primary flex flex-wrap p-3  rounded-2xl shadow-sm">
+                    <div className="zft bg-primary flex flex-wrap p-3  rounded-2xl shadow-sm">
                       <div className="w-full">
                         <span className="font-bold">{el.username}</span>
                         <p>{el.text}</p>

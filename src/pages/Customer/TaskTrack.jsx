@@ -125,6 +125,11 @@ function TaskTrack() {
                     el?._id === myTask?._id ? "bg-btn text-btn" : "bg-secondary"
                   }  relative col-span-1 p-3 flex justify-center items-center flex-wrap h-32  text-secondary shadow-sm`}
                 >
+                  {el.working === 3 && (
+                    <div className="absolute -top-5 left-0 p-2 bg-yellow-600 text-white shadow-md">
+                      <p>في الطريق</p>
+                    </div>
+                  )}
                   {el.working === 2 && (
                     <div className="absolute -top-5 left-0 p-2 bg-green-600 text-white shadow-md">
                       <p> جار العمل</p>
@@ -173,7 +178,7 @@ function TaskTrack() {
         </div>
         <Messages
           messages={myTask && myTask?.messages}
-          myTaskId={myTask && myTask?._id}
+          taskId={myTask && myTask?._id}
           taskerId={taskerId}
         />
       </div>

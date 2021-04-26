@@ -18,8 +18,6 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
   const [changeButton, SetChangeButton] = useState(false);
   const { myToken } = useContext(AuthContext);
 
-  console.log(working);
-
   useEffect(() => {
     axios
       .get(`http://localhost:5000/users/singleTask/${taskId}`, {
@@ -43,6 +41,7 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
   const handleShit = () => {
     setOpen(false);
     handleShow();
+    fetching();
   };
 
   const handleUpdate = (e) => {
@@ -75,22 +74,6 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
         .catch((err) => err.response.data.msg && console.log(err));
     }
   };
-  const markAsDone = () => {
-    axios
-      .put(
-        `http://localhost:5000/users/doneTask/${taskId}`,
-        { working, menutes: parseInt(estimatedTime) },
-        {
-          headers: { "x-auth-token": myToken },
-        }
-      )
-      .then((res) => {
-        setWorking(res.data.working);
-        fetching();
-        handleShit();
-      })
-      .catch((err) => err.response.data.msg && console.log(err));
-  };
 
   if (loading) return <></>;
 
@@ -114,7 +97,7 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -164,6 +147,7 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
                       >
                         <option value={1}>معلق</option>
                         <option value={2}>جار العمل</option>
+                        <option value={3}>في الطريق</option>
                         <option value="done">منتهي</option>
                       </select>
                       <input
@@ -189,8 +173,9 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
                     </form>
                     <div className="w-full  bg-primary p-2">
                       <PopupMessages
-                        TaskId={task && task?._id}
+                        taskId={task && task?._id}
                         messages={task && task?.messages}
+                        fetch={fetching}
                       />
                     </div>
                   </div>

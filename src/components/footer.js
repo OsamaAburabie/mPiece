@@ -1,5 +1,4 @@
-function Footer(props) {
-  console.log(props.url);
+function Footer() {
   return (
     <footer dir="rtl" className="footer bg-secondary   pt-1 ">
       <div className="container mx-auto px-6">

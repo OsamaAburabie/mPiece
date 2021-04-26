@@ -356,7 +356,7 @@ const Navbar = () => {
                               onMouseOver={() =>
                                 handleMouseOver(el.notifId, el.seen)
                               }
-                              className=" relative w-96 p-2 bg-secondar text-right shadow-md rounded-md flex flex-wrap items-center m-2"
+                              className=" relative w-96 p-2 bg-secondar text-right  rounded-md flex flex-wrap items-center m-2"
                             >
                               <div dir="auto" className=" px-2 w-full mb-2">
                                 {el.type === "connection" ? (

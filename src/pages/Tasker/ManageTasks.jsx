@@ -12,7 +12,8 @@ import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import DeletePopup from "../../components/Common/DeletePopup";
 import CloseIcon from "@material-ui/icons/Close";
 import ChatPopup from "../../components/Tasker/ChatPopup";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+// import NotificationsIcon from "@material-ui/icons/Notifications";
+import EmailIcon from "@material-ui/icons/Email";
 import { Badge } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 
@@ -143,15 +144,20 @@ function ManageTasks() {
                         <p> جار العمل</p>
                       </div>
                     )}
+                    {el.working === 3 && (
+                      <div className="absolute -top-5 left-0 p-2 bg-yellow-600 text-white shadow-md">
+                        <p> في الطريق</p>
+                      </div>
+                    )}
                     {el.working === 1 && (
                       <div className="absolute -top-5 left-0 p-2 bg-red-600 text-white shadow-md">
                         <p>معلق</p>
                       </div>
                     )}
                     {el.notification === 1 && (
-                      <div className="absolute -top-5 right-1/2 p-2   ">
+                      <div className="absolute -top-5 right-0 p-2   ">
                         <Badge badgeContent="جديد" color="secondary">
-                          <NotificationsIcon
+                          <EmailIcon
                             fontSize="large"
                             className="text-primary"
                           />

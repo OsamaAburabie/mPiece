@@ -25,7 +25,9 @@
     "react-simple-image-viewer": "0.0.8",
     "reactjs-popup": "^2.0.4",
     "simplebar-react": "^2.3.0",
+    "styled-components": "^5.2.3",
     "tailwindcss-rtl": "^0.7.3",
+    "socket.io-client": "^2.3.0",
     "web-vitals": "^1.1.1",
     "yup": "^0.32.9"
   },
