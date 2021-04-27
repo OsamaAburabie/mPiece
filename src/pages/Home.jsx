@@ -1,8 +1,16 @@
+import axios from "axios";
 import { Formik } from "formik";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as Yup from "yup";
-import HomeCard from "../components/HomeCard";
 function Home() {
+  const [category, setCategory] = useState();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/users/getallCategories")
+      .then((res) => setCategory(res.data));
+  }, []);
   return (
     <>
       <section className="w-full flex justify-center items-center h-96 bg-gray-400 ">
@@ -93,115 +101,30 @@ function Home() {
       <div className="grid md:grid-cols-4">
         <main className="px-16 py-6 md:col-span-4 ">
           <p className="w-full  text-center text-5xl text-secondary ">
-            خدماتنا
+            خدمات رائجة
           </p>
 
           <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-4">
             {/* cards go here */}
-            <div className="card">
-              <img
-                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
-                alt="stew"
-                className="h-32 sm:h-48 w-full object-cover"
-              />
-              <div className="m-4">
-                <span className="font-bold">5 Bean Chili Stew</span>
-                <span className="block text-gray-500 text-sm">
-                  Recipe by Mario
-                </span>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
-                alt="stew"
-                className="h-32 sm:h-48 w-full object-cover"
-              />
-              <div className="m-4">
-                <span className="font-bold">5 Bean Chili Stew</span>
-                <span className="block text-gray-500 text-sm">
-                  Recipe by Mario
-                </span>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
-                alt="stew"
-                className="h-32 sm:h-48 w-full object-cover"
-              />
-              <div className="m-4">
-                <span className="font-bold">5 Bean Chili Stew</span>
-                <span className="block text-gray-500 text-sm">
-                  Recipe by Mario
-                </span>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
-                alt="stew"
-                className="h-32 sm:h-48 w-full object-cover"
-              />
-              <div className="m-4">
-                <span className="font-bold">5 Bean Chili Stew</span>
-                <span className="block text-gray-500 text-sm">
-                  Recipe by Mario
-                </span>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
-                alt="stew"
-                className="h-32 sm:h-48 w-full object-cover"
-              />
-              <div className="m-4">
-                <span className="font-bold">5 Bean Chili Stew</span>
-                <span className="block text-gray-500 text-sm">
-                  Recipe by Mario
-                </span>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
-                alt="stew"
-                className="h-32 sm:h-48 w-full object-cover"
-              />
-              <div className="m-4">
-                <span className="font-bold">5 Bean Chili Stew</span>
-                <span className="block text-gray-500 text-sm">
-                  Recipe by Mario
-                </span>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
-                alt="stew"
-                className="h-32 sm:h-48 w-full object-cover"
-              />
-              <div className="m-4">
-                <span className="font-bold">5 Bean Chili Stew</span>
-                <span className="block text-gray-500 text-sm">
-                  Recipe by Mario
-                </span>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg"
-                alt="stew"
-                className="h-32 sm:h-48 w-full object-cover"
-              />
-              <div className="m-4">
-                <span className="font-bold">5 Bean Chili Stew</span>
-                <span className="block text-gray-500 text-sm">
-                  Recipe by Mario
-                </span>
-              </div>
-            </div>
+            {category &&
+              category.slice(0, 4).map((el) => (
+                <NavLink to={`/services/${el._id}`}>
+                  <div key={el._id} className="card">
+                    <img
+                      src={el.picture}
+                      alt="stew"
+                      className="h-32 sm:h-48 w-full object-cover"
+                    />
+                    <div dir="rtl" className="m-4">
+                      <span className="font-bold">{el.name}</span>
+                      <span className="block  text-sm">
+                        <i className="fas fa-tags ml-1"></i>
+                        معدل الأجر ({el.min}-{el.high}) دينار
+                      </span>
+                    </div>
+                  </div>
+                </NavLink>
+              ))}
           </div>
         </main>
       </div>

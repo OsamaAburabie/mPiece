@@ -107,7 +107,7 @@ function ManageTasks() {
 
   return (
     <>
-      <div className=" w-screen min-h-screen   p-4">
+      <div className=" min-h-screen   p-4">
         <div className="w-full h-72 p-4 bg-secondary text-secondary grid place-items-center text-center">
           <div>
             <img

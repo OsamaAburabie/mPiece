@@ -15,6 +15,8 @@ import TaskTrack from "./pages/Customer/TaskTrack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Popup from "./components/Tasker/PendingPopup";
 import ManageTasks from "./pages/Tasker/ManageTasks";
+import SimpleBarReact from "simplebar-react";
+import ScrollToTop from "./components/ScrollToTop";
 
 function Routes() {
   const { isLoggedIn, role, pendingCon } = useContext(AuthContext);
@@ -26,22 +28,24 @@ function Routes() {
     );
   }
   return (
-    <div className="bg-primary  ">
+    <div className="bg-primary">
       <BrowserRouter>
-        <Navbar />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/myConnections" component={Connections} />
-          <Route path="/services" exact component={Services} />
-          <Route path="/services/:catId" exact component={TaskerAds} />
-          <Route path="/services/:adId/:taskerId" component={SingleAd} />
-          <Route path="/tasker/:taskerId" exact component={TaskTrack} />
-          <Route path="/manageTasks" exact component={ManageTasks} />
-          <Route path="/NotFound404" component={NotFound} />
-        </Switch>
-        <Footer />
+        <ScrollToTop>
+          <Navbar />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/myConnections" component={Connections} />
+            <Route path="/services" exact component={Services} />
+            <Route path="/services/:catId" exact component={TaskerAds} />
+            <Route path="/services/:adId/:taskerId" component={SingleAd} />
+            <Route path="/tasker/:taskerId" exact component={TaskTrack} />
+            <Route path="/manageTasks" exact component={ManageTasks} />
+            <Route path="/NotFound404" component={NotFound} />
+          </Switch>
+          <Footer />
+        </ScrollToTop>
       </BrowserRouter>
 
       {isLoggedIn && role === "tasker" && pendingCon.length > 0 && <Popup />}
