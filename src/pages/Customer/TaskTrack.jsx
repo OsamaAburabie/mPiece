@@ -75,28 +75,30 @@ function TaskTrack() {
 
   return (
     <>
-      <div className=" w-screen  flex justify-center flex-wrap p-4">
-        <div className="w-full h-72 p-4 bg-secondary text-secondary grid place-items-center text-center">
+      <div className=" w-screen  flex justify-center flex-wrap ">
+        <div className="w-full h-72  bg-secondary text-secondary grid place-items-center text-center">
           <div>
-            <img
-              src={tasker?.img}
-              alt="anything"
-              className="w-28 h-28 md:w-40 md:h-40 object-cover rounded-full"
-            />
-            <p className="text-2xl">{tasker?.name}</p>
+            <div className="w-full grid place-items-center">
+              <img
+                src={tasker?.img}
+                alt="anything"
+                className="w-28 h-28 md:w-40 md:h-40 object-cover rounded-full"
+              />
+            </div>
+            <p className="text-2xl ">{tasker?.name}</p>
             <Rating name="read-only" value={rating} readOnly />
-          </div>
-          <div>
-            <p className="text-2xl">
-              اَخر ظهور:
-              <span className="mr-2">
-                (
-                <Moment locale="ar" fromNow>
-                  {tasker?.lastLogin}
-                </Moment>
-                )
-              </span>
-            </p>
+            <div>
+              <p className="text-lg">
+                نشط
+                <span className="mr-1">
+                  (
+                  <Moment locale="ar" fromNow>
+                    {tasker?.lastLogin}
+                  </Moment>
+                  )
+                </span>
+              </p>
+            </div>
           </div>
         </div>
         <div className="w-full flex justify-center my-10">

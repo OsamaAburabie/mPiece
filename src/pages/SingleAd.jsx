@@ -15,6 +15,7 @@ import AdComments from "../components/AdComments";
 import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
 import Popup from "../components/Popup";
+import TaskerAdCard from "../components/TaskerAdCard";
 
 function SingleAd() {
   const { adId, taskerId } = useParams();
@@ -30,10 +31,26 @@ function SingleAd() {
   const [show, setShow] = useState(true);
   const [popOpen, setPopOpen] = useState(false);
 
+  const [ads, setAds] = useState();
+  const [catId, setCatId] = useState("");
+
+  console.log(ads);
+  useEffect(() => {
+    if (!catId) return;
+    axios
+      .get(`http://localhost:5000/users/getallfromCategory/${catId}`)
+      .then((res) => {
+        setAds(res.data.ads);
+      });
+  }, [catId]);
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/users/getSingleAd/${adId}`)
-      .then((res) => setAd(res.data))
+      .then((res) => {
+        setAd(res.data);
+        setCatId(res.data.catId);
+      })
       .catch(() => setNotFound(true));
     axios
       .get(`http://localhost:5000/users/taskerInfo/${taskerId}`)
@@ -41,7 +58,7 @@ function SingleAd() {
         setTasker(res.data.tasker);
       })
       .catch((err) => setNotFound(true));
-  }, []);
+  }, [adId]);
 
   const book = () => {
     if (!isLoggedIn) {
@@ -101,18 +118,16 @@ function SingleAd() {
               <div className="w-full md:max-w-full md:block  ">
                 <div
                   dir="rtl"
-                  className="con__card max-h-full md:block bg-secondary  shadow-sm"
+                  className="con__card max-h-full md:block bg-btn text-btn  shadow-md rounded-lg"
                 >
-                  <div className="con__card__upper">
+                  <div className="w-full flex justify-center">
                     <img
                       src={tasker?.img}
                       alt="anything"
-                      className="w-20 h-20"
+                      className="w-24 h-24 rounded-full border-2"
                     />
                   </div>
-                  <span className="text-center block text-secondary">
-                    {tasker?.name}
-                  </span>
+                  <span className="text-center block ">{tasker?.name}</span>
                   <div className="w-full ">
                     <Rate
                       rating={tasker?.rating?.sum}
@@ -120,19 +135,19 @@ function SingleAd() {
                     />
                   </div>
                   <div className="w-full mt-2 p-3 ">
-                    <p className="text-md text-secondary">
+                    <p className="text-md ">
                       <WorkOutlineIcon className="ml-2" />
                       المهام المنجزة : {tasker?.finishedTasks}
                     </p>
 
-                    <p className="text-md text-secondary">
+                    <p className="text-md ">
                       <AccessTimeIcon className="ml-2" />
                       اَخر ظهور :
                       <Moment locale="ar" fromNow>
                         {tasker?.lastLogin}
                       </Moment>
                     </p>
-                    <p className="text-md text-secondary">
+                    <p className="text-md ">
                       <CheckCircleOutlineIcon className="ml-2" />
                       عضو :
                       <Moment locale="ar" fromNow>
@@ -149,7 +164,7 @@ function SingleAd() {
                           // onClick={() => book()}
                           onClick={handlePopup}
                           disabled={!show}
-                          className="book__btn bg-btn text-btn rounded-sm"
+                          className="book__btn bg-secondary text-secondary rounded-sm"
                         >
                           ارسال طلب
                         </button>
@@ -159,7 +174,7 @@ function SingleAd() {
                       <button
                         onClick={() => book()}
                         disabled={true}
-                        className="book__btn bg-btn text-btn rounded-sm"
+                        className="book__btn bg-secondary text-secondary rounded-sm"
                       >
                         تم ارسال طلبك
                       </button>
@@ -167,7 +182,7 @@ function SingleAd() {
                     {existing(taskerId) && (
                       <NavLink
                         to={`/tasker/${taskerId}`}
-                        className="book__btn block bg-btn text-btn rounded-sm"
+                        className="book__btn block bg-secondary text-secondary rounded-sm"
                       >
                         تواصل
                       </NavLink>
@@ -178,10 +193,31 @@ function SingleAd() {
                       يجب ان تكون مسجل لكي تستطيع ان ترسل طلب
                     </p>
                   )}
-                  {success && <p className="text-red-600 p-1">{success}</p>}
+                  {success && <p className="text-white p-1">{success}</p>}
                 </div>
               </div>
             </div>
+          </div>
+          {/* ========================================================================== */}
+          <div className="w-full md:grid grid-cols-1 gap-3 pt-3 hidden ">
+            {ads &&
+              ads
+                .filter((el) => el._id !== adId)
+                .slice(0, 3)
+                .map((el) => (
+                  <TaskerAdCard
+                    key={el._id}
+                    title={el.title}
+                    price={el.price}
+                    location={el.location}
+                    avatar="https://scontent.famm10-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=f5pa2FLFEAsAX8jY3yj&_nc_ht=scontent.famm10-1.fna&oh=2675a517602d9067dae43697e59d5af8&oe=609FE6F7"
+                    taskerName={el.taskerInfo.name}
+                    taskerId={el.taskerInfo.uid}
+                    // categoryId={catId}
+                    adId={el._id}
+                    date={el.createdAt}
+                  />
+                ))}
           </div>
         </div>
         <div className="md:col-span-8  lg:col-span-9  gap-3  ">

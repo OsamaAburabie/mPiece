@@ -102,8 +102,15 @@ const Navbar = () => {
       <nav dir="rtl" className="bg-secondary shadow-md">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
-            <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
+            <div className="absolute  inset-y-0 left-0 flex items-center md:hidden">
               {/* Mobile menu button*/}
+              <div className="flex-shrink-0 flex items-center">
+                <img
+                  className="block lg:hidden h-12 w-auto ml-5"
+                  src={theme === "dark" ? LogoDark : Logo}
+                  alt="Workflow"
+                />
+              </div>
               <button
                 type="button"
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-primary hover:bg-primary outline-none focus:outline-none"
@@ -160,11 +167,11 @@ const Navbar = () => {
             </div>
             <div className="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
               <div className="flex-shrink-0 flex items-center ml-3">
-                <img
+                {/* <img
                   className="block lg:hidden h-16 w-auto"
                   src={theme === "dark" ? LogoDark : Logo}
                   alt="Workflow"
-                />
+                /> */}
                 <img
                   className="hidden lg:block h-16 w-auto"
                   src={theme === "dark" ? LogoDark : Logo}
@@ -189,13 +196,7 @@ const Navbar = () => {
                   >
                     الخدمات
                   </NavLink>
-                  <NavLink
-                    to="/Projects"
-                    className="text-secondary hover:bg-primary hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
-                    activeClassName="bg-primary"
-                  >
-                    إستكشف
-                  </NavLink>
+
                   <NavLink
                     to="/Calendar"
                     className="text-secondary hover:bg-primary hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
@@ -481,13 +482,7 @@ const Navbar = () => {
               >
                 الخدمات
               </NavLink>
-              <NavLink
-                to="/Projects"
-                className="text-secondary hover:bg-primary hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
-                activeClassName="bg-primary"
-              >
-                اسكتشف
-              </NavLink>
+
               <NavLink
                 to="/Calendar"
                 className="text-secondary hover:bg-primary hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
