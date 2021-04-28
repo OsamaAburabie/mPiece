@@ -16,6 +16,7 @@ import ChatPopup from "../../components/Tasker/ChatPopup";
 import EmailIcon from "@material-ui/icons/Email";
 import { Badge } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
+import NotFound from "../NotFound";
 
 function ManageTasks() {
   const { taskerId } = useParams();
@@ -89,25 +90,11 @@ function ManageTasks() {
   };
 
   if (loading) return <div className=" bg-primary h-screen"></div>;
-  if (loadingError)
-    return (
-      <div className=" bg-primary h-screen grid place-items-center text-center">
-        <div>
-          <p className="text-3xl text-secondary mb-2">هذه الصفحة غير موجودة</p>
-
-          <button
-            onClick={() => history.push("/")}
-            className="bg-btn text-btn p-2 mt-1 rounded-md"
-          >
-            العودة الى الرئيسية
-          </button>
-        </div>
-      </div>
-    );
+  if (loadingError) return <NotFound />;
 
   return (
     <>
-      <div className=" min-h-screen   p-4">
+      <div className=" min-h-screen   ">
         <div className="w-full h-72 p-4 bg-secondary text-secondary grid place-items-center text-center">
           <div>
             <img
@@ -137,7 +124,7 @@ function ManageTasks() {
                     key={el._id}
                     className={`${
                       el?._id === myTask?._id ? "bg-btn text-btn" : "bg-primary"
-                    }  relative col-span-1 p-3 flex justify-center items-center flex-wrap h-32   text-primary shadow-sm cursor-pointer hover:bg-btn hover:text-btn transition duration-300 ease-in-out	`}
+                    }  relative col-span-1  flex justify-center items-center flex-wrap h-32   text-primary shadow-sm cursor-pointer hover:bg-btn hover:text-btn transition duration-300 ease-in-out	`}
                   >
                     {el.working === 2 && (
                       <div className="absolute -top-5 left-0 p-2 bg-green-600 text-white shadow-md">
@@ -165,14 +152,6 @@ function ManageTasks() {
                       </div>
                     )}
 
-                    {el?._id === myTask?._id && (
-                      <button
-                        onClick={() => setShow(!show)}
-                        className="absolute top-0 right-0 p-2 focus:outline-none"
-                      >
-                        <CloseIcon />
-                      </button>
-                    )}
                     <div className="text-xl">
                       <p>
                         <WorkIcon />

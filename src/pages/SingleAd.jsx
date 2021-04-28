@@ -164,7 +164,7 @@ function SingleAd() {
                           // onClick={() => book()}
                           onClick={handlePopup}
                           disabled={!show}
-                          className="book__btn bg-secondary text-secondary rounded-sm"
+                          className="book__btn bg-btnsec text-btn border-2 rounded-sm"
                         >
                           ارسال طلب
                         </button>
@@ -174,7 +174,7 @@ function SingleAd() {
                       <button
                         onClick={() => book()}
                         disabled={true}
-                        className="book__btn bg-secondary text-secondary rounded-sm"
+                        className="book__btn  bg-btnsec text-btn border-2 rounded-sm"
                       >
                         تم ارسال طلبك
                       </button>
@@ -182,7 +182,7 @@ function SingleAd() {
                     {existing(taskerId) && (
                       <NavLink
                         to={`/tasker/${taskerId}`}
-                        className="book__btn block bg-secondary text-secondary rounded-sm"
+                        className="book__btn block  bg-btnsec text-btn border-2 rounded-sm"
                       >
                         تواصل
                       </NavLink>

@@ -38,6 +38,7 @@ body {
   --color-text-secondary: #e2e8f0;
   --color-text-btn: #ffffff;
   --color-text-accent: #81e6d9;
+  --color-bg-btnsec: #186982;
 }
 
 .light {
@@ -48,6 +49,7 @@ body {
   --color-text-secondary: #4a5568;
   --color-text-btn: #ffffff;
   --color-text-accent: #2b6cb0;
+  --color-bg-btnsec: #186982;
 }
 
 @import "tailwindcss/base";

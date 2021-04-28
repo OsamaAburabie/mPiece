@@ -60,24 +60,27 @@ function TaskerAdsUpdate() {
         {/* //========================================================================================== */}
         <div className="col-span-0 hidden md:block md:col-span-5 py-3 px-7   ">
           {category &&
-            category.slice(0, 4).map((el) => (
-              <NavLink to={`/services/${el._id}`}>
-                <div key={el._id} className="card mb-3">
-                  <img
-                    src={el.picture}
-                    alt="stew"
-                    className="h-32 sm:h-48 w-full object-cover"
-                  />
-                  <div dir="rtl" className="m-4">
-                    <span className="font-bold">{el.name}</span>
-                    <span className="block  text-sm">
-                      <i className="fas fa-tags ml-1"></i>
-                      معدل الأجر ({el.min}-{el.high}) دينار
-                    </span>
+            category
+              .filter((el) => el._id !== catId)
+              .slice(0, 4)
+              .map((el) => (
+                <NavLink to={`/services/${el._id}`}>
+                  <div key={el._id} className="card mb-3">
+                    <img
+                      src={el.picture}
+                      alt="stew"
+                      className="h-32 sm:h-48 w-full object-cover"
+                    />
+                    <div dir="rtl" className="m-4">
+                      <span className="font-bold">{el.name}</span>
+                      <span className="block  text-sm">
+                        <i className="fas fa-tags ml-1"></i>
+                        معدل الأجر ({el.min}-{el.high}) دينار
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </NavLink>
-            ))}
+                </NavLink>
+              ))}
         </div>
         {/* //========================================================================================== */}
         <div className="col-span-12 md:col-span-7 py-3 ">

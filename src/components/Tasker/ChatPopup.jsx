@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 import SendIcon from "@material-ui/icons/Send";
 import PopupMessages from "./PopupMessages";
 import CloseIcon from "@material-ui/icons/Close";
+import PersonIcon from "@material-ui/icons/Person";
 
 export default function DeletePopup({ id, handleShow, taskId, fetching }) {
   const [open, setOpen] = useState(true);
@@ -129,6 +130,10 @@ export default function DeletePopup({ id, handleShow, taskId, fetching }) {
                 >
                   <CloseIcon />
                 </button>
+                <div className="w-full text-center text-2xl py-1 text-secondary">
+                  <PersonIcon />
+                  {task.CustomerName}
+                </div>
               </div>
               <div className="bg-secondary px-2 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
