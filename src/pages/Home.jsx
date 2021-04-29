@@ -13,7 +13,17 @@ function Home() {
   }, []);
   return (
     <>
-      <section className="w-full flex justify-center items-center h-96 bg-gray-400 "></section>
+      <section
+        style={{
+          backgroundImage: `url("https://www.hrzone.com/sites/default/files/styles/inline_banner/public/istock-1153675389.jpg?itok=CO0fYOt6")`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+        className="w-full flex justify-center items-center h-96 bg-gray-400 
+      
+      "
+      ></section>
 
       <div className="grid md:grid-cols-4">
         <main className="px-6 py-6 md:col-span-4 ">

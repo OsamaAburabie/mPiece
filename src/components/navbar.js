@@ -16,6 +16,7 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import NewAdPopup from "../components/Tasker/NewAdPopup";
 import WorkIcon from "@material-ui/icons/Work";
 import { ThemeContext } from "../contexts/themeContext";
+import PersonIcon from "@material-ui/icons/Person";
 
 const Navbar = () => {
   const ref = useRef();
@@ -32,6 +33,7 @@ const Navbar = () => {
   const {
     isLoggedIn,
     role,
+    img,
     username,
     pendingCon,
     checkLoggedIn,
@@ -408,7 +410,7 @@ const Navbar = () => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://scontent.famm6-1.fna.fbcdn.net/v/t31.18172-8/23632407_1481745538541088_4407289845242811931_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=c9YJstHkbe0AX8z0Fwj&_nc_ht=scontent.famm6-1.fna&oh=04774438877236f1bf10d2fa470a791c&oe=60A3DB77"
+                        src={img}
                         alt="logo"
                       />
                     </button>
@@ -427,7 +429,7 @@ const Navbar = () => {
                   {profileMenueOpen && (
                     <div
                       ref={ref}
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1  bg-secondary text-secondary focus:outline-none"
+                      className="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1  bg-secondary text-secondary focus:outline-none"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
@@ -438,15 +440,11 @@ const Navbar = () => {
                         className="block px-4 py-2 text-sm hover:bg-primary text-secondary"
                         role="menuitem"
                       >
-                        الملف الشخصي
+                        <PersonIcon />
+
+                        {username}
                       </NavLink>
-                      <NavLink
-                        to="/myConnections"
-                        className="block px-4 py-2 text-sm hover:bg-primary text-secondary"
-                        role="menuitem"
-                      >
-                        شبكتي
-                      </NavLink>
+
                       <div
                         onClick={logout}
                         className="block px-4 py-2 text-sm hover:bg-primary  text-secondary cursor-pointer"

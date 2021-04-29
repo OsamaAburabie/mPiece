@@ -7,6 +7,7 @@ function AuthContextProvider(props) {
   const [username, setUsername] = useState(null);
   const [role, setRole] = useState(null);
   const [email, setEmail] = useState(null);
+  const [img, setImg] = useState(null);
   const [pendingCon, setPendingCon] = useState(null);
   const [connections, setConnections] = useState(null);
   const [notification, setNotification] = useState(null);
@@ -32,6 +33,7 @@ function AuthContextProvider(props) {
       setUsername(tokenRes.data.displayName);
       setRole(tokenRes.data.role);
       setEmail(tokenRes.data.email);
+      setImg(tokenRes.data.img);
       setPendingCon(tokenRes.data.pendingConnections);
       setConnections(tokenRes.data.connections);
       setNotification(tokenRes.data.notifications);
@@ -56,6 +58,7 @@ function AuthContextProvider(props) {
         setLoggedIn,
         username,
         role,
+        img,
         email,
         checkLoggedIn,
         myToken,

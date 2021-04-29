@@ -189,7 +189,7 @@ function SingleAd() {
                     )}
                   </div>
                   {error && (
-                    <p className="text-red-600 p-1">
+                    <p className="text-white p-1">
                       يجب ان تكون مسجل لكي تستطيع ان ترسل طلب
                     </p>
                   )}
