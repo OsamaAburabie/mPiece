@@ -19,6 +19,7 @@ import SimpleBarReact from "simplebar-react";
 import ScrollToTop from "./components/ScrollToTop";
 import Dashboard from "./admin/Pages/Dashboard";
 import ManageCategorie from "./admin/Pages/ManageCategorie";
+import Profile from "./pages/Profile";
 
 function Routes() {
   const { isLoggedIn, role, pendingCon } = useContext(AuthContext);
@@ -39,6 +40,7 @@ function Routes() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/myConnections" component={Connections} />
+            <Route path="/profile" component={Profile} />
             <Route path="/services" exact component={Services} />
             <Route path="/services/:catId" exact component={TaskerAds} />
             <Route path="/services/:adId/:taskerId" component={SingleAd} />
@@ -50,7 +52,7 @@ function Routes() {
               exact
               component={ManageCategorie}
             />
-            <Route path="/NotFound404" component={NotFound} />
+            <Route path="/*" component={NotFound} />
           </Switch>
           <Footer />
         </ScrollToTop>

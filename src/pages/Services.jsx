@@ -27,7 +27,7 @@ function Services() {
                   <span className="font-bold">{el.name}</span>
                   <span className="block  text-sm">
                     <i className="fas fa-tags ml-1"></i>
-                    معدل الأجر ({el.min}-{el.high}) دينار
+                    معدل الأجر ({el.min}-{el.high}) دينار/س
                   </span>
                 </div>
               </div>

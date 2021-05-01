@@ -215,6 +215,14 @@ const Navbar = () => {
                       مهامي
                     </NavLink>
                   )}
+                  {isLoggedIn && role === "admin" && (
+                    <NavLink
+                      to="/admin/dashboard"
+                      className="text-white focus:outline-none bg-btn  px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Dashboard
+                    </NavLink>
+                  )}
 
                   {isLoggedIn && role === "tasker" && (
                     <button
@@ -436,7 +444,7 @@ const Navbar = () => {
                       onClick={() => setProfileMenueOpen(false)}
                     >
                       <NavLink
-                        to="/"
+                        to="/profile"
                         className="block px-4 py-2 text-sm hover:bg-primary text-secondary"
                         role="menuitem"
                       >

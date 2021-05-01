@@ -3,6 +3,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import EditCategory from "../EditCategory";
+import { useHistory } from "react-router";
 
 function ManageCategorie() {
   const [category, setCategory] = useState();
@@ -11,9 +12,10 @@ function ManageCategorie() {
   const [name, setName] = useState("");
   const [min, setMin] = useState("");
   const [high, setHigh] = useState("");
-  const { myToken } = useContext(AuthContext);
+  const { myToken, isLoggedIn, role } = useContext(AuthContext);
   const [selectedId, setSelectedId] = useState("");
   const [show, setShow] = useState(false);
+  const history = useHistory();
 
   async function postCategory({ image, name, min, high }) {
     try {
@@ -63,8 +65,12 @@ function ManageCategorie() {
   };
 
   useEffect(() => {
-    fetchCategory();
-  }, []);
+    if (role !== "admin" || isLoggedIn === false) {
+      history.push("/");
+    } else {
+      fetchCategory();
+    }
+  }, [isLoggedIn]);
 
   const fileSelected = (event) => {
     const file = event.target.files[0];
