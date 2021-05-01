@@ -17,6 +17,8 @@ import Popup from "./components/Tasker/PendingPopup";
 import ManageTasks from "./pages/Tasker/ManageTasks";
 import SimpleBarReact from "simplebar-react";
 import ScrollToTop from "./components/ScrollToTop";
+import Dashboard from "./admin/Pages/Dashboard";
+import ManageCategorie from "./admin/Pages/ManageCategorie";
 
 function Routes() {
   const { isLoggedIn, role, pendingCon } = useContext(AuthContext);
@@ -42,6 +44,12 @@ function Routes() {
             <Route path="/services/:adId/:taskerId" component={SingleAd} />
             <Route path="/tasker/:taskerId" exact component={TaskTrack} />
             <Route path="/manageTasks" exact component={ManageTasks} />
+            <Route path="/admin/dashboard" exact component={Dashboard} />
+            <Route
+              path="/admin/dashboard/manage-categories"
+              exact
+              component={ManageCategorie}
+            />
             <Route path="/NotFound404" component={NotFound} />
           </Switch>
           <Footer />

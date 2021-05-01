@@ -75,7 +75,7 @@ function TaskTrack() {
 
   return (
     <>
-      <div className=" w-screen  flex justify-center flex-wrap ">
+      <div className="   flex justify-center flex-wrap ">
         <div className="w-full h-72  bg-secondary text-secondary grid place-items-center text-center">
           <div>
             <div className="w-full grid place-items-center">

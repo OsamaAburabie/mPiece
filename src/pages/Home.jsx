@@ -2,7 +2,6 @@ import axios from "axios";
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import * as Yup from "yup";
 function Home() {
   const [category, setCategory] = useState();
 
@@ -27,7 +26,7 @@ function Home() {
 
       <div className="grid md:grid-cols-4">
         <main className="px-6 py-6 md:col-span-4 ">
-          <p className="w-full  text-center text-5xl text-secondary ">
+          <p className=" w-full  text-center text-5xl text-secondary ">
             خدمات رائجة
           </p>
 
