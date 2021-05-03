@@ -48,8 +48,9 @@ function TaskerAdsUpdate() {
     setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
   };
 
-  // if (ads && ads.length === 0) return <NotFound />;
-
+  const filterAds = (id) => {
+    setAds(ads.filter((el) => el._id !== id));
+  };
   if (!ads) return <div className=" bg-primary h-screen"></div>;
   return (
     // <div className="min-h-screen grid grid-cols-1 md:grid-cols-12  gap-4 p-5"></div>
@@ -64,8 +65,8 @@ function TaskerAdsUpdate() {
               .filter((el) => el._id !== catId)
               .slice(0, 4)
               .map((el) => (
-                <NavLink to={`/services/${el._id}`}>
-                  <div key={el._id} className="card mb-3">
+                <NavLink key={el._id} to={`/services/${el._id}`}>
+                  <div className="card mb-3">
                     <img
                       src={el.picture}
                       alt="stew"
@@ -98,9 +99,10 @@ function TaskerAdsUpdate() {
                   categoryId={catId}
                   adId={el._id}
                   date={el.createdAt}
+                  filtering={filterAds}
                 />
               ))}
-            {numberOfPages && numberOfPages > 1 && (
+            {numberOfPages > 1 && (
               <div className="flex">
                 <button
                   className=" bg-btn text-btn  p-2 mr-1 text-center"

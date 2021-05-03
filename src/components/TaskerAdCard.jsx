@@ -8,9 +8,13 @@ import AdCardTaskerInfo from "./Tasker/AdCardTaskerInfo";
 import ReactPlaceholder from "react-placeholder";
 import "react-placeholder/lib/reactPlaceholder.css";
 import "./skelton.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Moment from "react-moment";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import AuthContext from "../contexts/AuthContext";
+import axios from "axios";
 function TaskerAdCard({
   title,
   price,
@@ -21,11 +25,23 @@ function TaskerAdCard({
   categoryId,
   adId,
   date,
+  filtering,
 }) {
   const [loading, setLoading] = useState(true);
+  const { myId, myToken } = useContext(AuthContext);
 
   const handleLoading = () => {
     setLoading(false);
+  };
+
+  const deleteAd = (id) => {
+    axios
+      .delete(`http://localhost:5000/api/deletePost/${id}`, {
+        headers: {
+          "x-auth-token": myToken,
+        },
+      })
+      .then((res) => filtering(id));
   };
 
   return (
@@ -38,14 +54,14 @@ function TaskerAdCard({
         adId={adId}
         handleLoading={handleLoading}
       />
-      <div className="h-full w-full p-4 text-secondary flex items-center  ">
+      <div className="h-full w-full p-4 text-secondary flex items-center relative  ">
         <ReactPlaceholder
           type="media"
           style={{ width: "100%", height: "10rem" }}
           rows={5}
           ready={!loading}
         >
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap ">
             <div className="overflow-hidden max-h-24 md:max-h-18">
               <p className="text-xl ">{title}</p>
             </div>
@@ -75,6 +91,16 @@ function TaskerAdCard({
               </NavLink>
             </div>
           </div>
+
+          {myId === taskerId && (
+            <>
+              <DeleteIcon
+                onClick={() => deleteAd(adId)}
+                className="absolute top-3 left-3 cursor-pointer"
+              />
+              <EditIcon className="absolute top-3 left-10 cursor-pointer" />
+            </>
+          )}
         </ReactPlaceholder>
       </div>
     </div>

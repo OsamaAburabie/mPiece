@@ -42,8 +42,8 @@ function Home() {
             {/* cards go here */}
             {category &&
               category.slice(0, 4).map((el) => (
-                <NavLink to={`/services/${el._id}`}>
-                  <div key={el._id} className="card">
+                <NavLink key={el._id} to={`/services/${el._id}`}>
+                  <div className="card">
                     <img
                       src={el.picture}
                       alt="stew"

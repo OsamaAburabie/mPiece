@@ -16,8 +16,8 @@ function Services() {
         {/* cards go here */}
         {category &&
           category.map((el) => (
-            <NavLink to={`/services/${el._id}`}>
-              <div key={el._id} className="card">
+            <NavLink key={el._id} to={`/services/${el._id}`}>
+              <div className="card">
                 <img
                   src={el.picture}
                   alt="stew"
