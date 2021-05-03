@@ -71,7 +71,7 @@ function Home() {
         </div>
         <div
           dir="rtl"
-          className="md:p-24 p-2 text-secondary flex items-center flex-wrap"
+          className="md:p-16 p-2 text-secondary flex items-center flex-wrap"
         >
           <h6 className="text-3xl font-bold">سهلنا عليك المهمة</h6>
           <p className="text-sm mb-5  ">
